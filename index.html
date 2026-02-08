@@ -8,15 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --pink: #D4A5A5; --dark: #6B3A3A; --cream: #FDF8F6; }
-        body { font-family: 'Raleway', sans-serif; background-color: #fff; color: #4A4A4A; }
+        body { font-family: 'Raleway', sans-serif; background-color: #fff; color: #4A4A4A; scroll-behavior: smooth; }
         .font-display { font-family: 'Cormorant Garamond', serif; }
         
-        /* Тот самый нейронный фон */
         .neural-bg {
             background-color: var(--cream);
             background-image: radial-gradient(var(--pink) 0.5px, transparent 0.5px);
             background-size: 24px 24px;
-            background-attachment: fixed;
         }
 
         .btn-main {
@@ -30,9 +28,16 @@
         }
         .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(107, 58, 58, 0.2); }
         
-        .card { background: white; border-radius: 24px; border: 1px solid rgba(212, 165, 165, 0.3); padding: 2rem; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: all 0.4s ease; }
-        .open .accordion-content { max-height: 300px; padding-top: 1rem; }
+        .card { background: white; border-radius: 24px; border: 1px solid rgba(212, 165, 165, 0.3); padding: 2rem; transition: all 0.3s ease; }
+        .card:hover { border-color: var(--pink); }
+        
+        .accordion-content { max-height: 0; overflow: hidden; transition: all 0.4s ease; opacity: 0; }
+        .open .accordion-content { max-height: 300px; padding-top: 1rem; opacity: 1; }
+        .open .icon-plus { transform: rotate(45deg); }
+        .icon-plus { transition: transform 0.3s ease; display: inline-block; }
+
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); }
+        .modal-content { background: white; margin: 10% auto; padding: 2rem; border-radius: 24px; max-width: 600px; max-height: 70vh; overflow-y: auto; position: relative; }
     </style>
 </head>
 <body>
@@ -40,91 +45,33 @@
     <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-pink/20">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="font-display text-2xl font-bold text-[#6B3A3A]">EQ COURSE</div>
-            <a href="#register" class="text-sm font-semibold text-[#6B3A3A] border border-[#6B3A3A] px-4 py-2 rounded-full hover:bg-[#6B3A3A] hover:text-white transition">Записаться</a>
+            <div class="hidden md:flex space-x-6 text-sm font-semibold text-[#6B3A3A]">
+                <a href="#about" class="hover:opacity-60">О курсе</a>
+                <a href="#program" class="hover:opacity-60">Программа</a>
+                <a href="#pricing" class="hover:opacity-60">Стоимость</a>
+                <a href="#speakers" class="hover:opacity-60">Спикеры</a>
+            </div>
+            <a href="#register" class="btn-main !py-2 !px-6 !text-sm">Записаться</a>
         </div>
     </nav>
 
-    <header class="neural-bg pt-40 pb-32 text-center px-6">
+    <header class="neural-bg pt-48 pb-32 text-center px-6">
         <div class="max-w-4xl mx-auto">
-            <p class="uppercase tracking-widest text-sm mb-6 text-[#6B3A3A] font-bold">Для преподавателей нового поколения</p>
-            <h1 class="font-display text-5xl md:text-7xl text-[#6B3A3A] mb-8 leading-tight">Эмоциональный интеллект как ключ к успеху</h1>
+            <p class="uppercase tracking-widest text-sm mb-6 text-[#6B3A3A] font-bold">Курс Валерии Бакановой и Натальи Шубниковой</p>
+            <h1 class="font-display text-5xl md:text-7xl text-[#6B3A3A] mb-8 leading-tight">Эмоциональный интеллект в преподавании</h1>
             <p class="text-xl md:text-2xl text-[#5A4040] mb-12 max-w-2xl mx-auto leading-relaxed">
-                ИИ предоставит знания бесплатно. Ваша ценность в 2026 году — это умение чувствовать, понимать и выстраивать связь.
+                В эпоху ИИ побеждает тот, кто умеет выстраивать связь. Продавайте свой опыт как премиальный сервис.
             </p>
-            <a href="#register" class="btn-main">Трансформировать практику</a>
+            <a href="#pricing" class="btn-main">Посмотреть стоимость</a>
         </div>
     </header>
 
-    <section class="py-24 px-6 max-w-4xl mx-auto text-center">
-        <h2 class="font-display text-4xl text-[#6B3A3A] mb-16">Узнаете себя в этих ситуациях?</h2>
-        <div class="space-y-4 text-left">
+    <section id="about" class="py-24 px-6 max-w-4xl mx-auto text-center">
+        <h2 class="font-display text-4xl text-[#6B3A3A] mb-16">Узнаете себя?</h2>
+        <div class="grid gap-4 text-left">
             <div class="card">Студенты уходят по неочевидным причинам?</div>
+            <div class="card">Чувствуете злость из-за неорганизованности учеников?</div>
             <div class="card">Не можете выйти на желаемый уровень дохода?</div>
-            <div class="card">Чувствуете злость на студентов из-за их неорганизованности?</div>
-            <div class="card">Боитесь брать сложные запросы с высокими чеками?</div>
+            <div class="card">Старые паттерны работы больше не приносят радости?</div>
         </div>
-        <p class="mt-12 font-display text-2xl italic text-[#6B3A3A]">Это именно то, что мы исправим на курсе.</p>
-    </section>
-
-    <section id="program" class="py-24 bg-[#FDF8F6] px-6">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="font-display text-4xl text-[#6B3A3A] mb-16 text-center">Программа 9 модулей</h2>
-            <div class="space-y-4">
-                <div class="card cursor-pointer group" onclick="this.classList.toggle('open')">
-                    <div class="flex justify-between items-center font-bold text-[#6B3A3A]">
-                        <span>01. История EI и нейрофизиология</span>
-                        <span class="text-2xl">+</span>
-                    </div>
-                    <div class="accordion-content text-gray-600">
-                        Научные основы и то, как мозг принимает решения об обучении.
-                    </div>
-                </div>
-                <div class="card cursor-pointer group" onclick="this.classList.toggle('open')">
-                    <div class="flex justify-between items-center font-bold text-[#6B3A3A]">
-                        <span>06. Модель SCARF и триггеры</span>
-                        <span class="text-2xl">+</span>
-                    </div>
-                    <div class="accordion-content text-gray-600">
-                        Управление вовлеченностью через социальные потребности мозга.
-                    </div>
-                </div>
-                <div class="card border-[#6B3A3A] bg-[#6B3A3A]/5 cursor-pointer" onclick="this.classList.toggle('open')">
-                    <div class="flex justify-between items-center font-bold text-[#6B3A3A]">
-                        <span>★ БОНУС: Бизнес и Деньги</span>
-                        <span class="text-2xl">+</span>
-                    </div>
-                    <div class="accordion-content text-[#6B3A3A]">
-                        Договоры, ценообразование и стратегия перехода в премиум-сегмент.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="speakers" class="py-24 px-6 max-w-6xl mx-auto">
-        <h2 class="font-display text-4xl text-[#6B3A3A] mb-16 text-center">Ваши наставники</h2>
-        <div class="grid md:grid-cols-2 gap-12 text-center">
-            <div>
-                <img src="https://i.ibb.co/tTjZTxtv/image.jpg" class="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-pink">
-                <h3 class="font-display text-2xl font-bold text-[#6B3A3A]">Валерия Баканова</h3>
-                <p class="text-gray-600 px-8">Professional Neurolanguage Coach. 20+ лет опыта. Эксперт по нейронаукам.</p>
-            </div>
-            <div>
-                <img src="https://i.ibb.co/qYYQjbp5/image.jpg" class="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-pink">
-                <h3 class="font-display text-2xl font-bold text-[#6B3A3A]">Наталья Шубникова</h3>
-                <p class="text-gray-600 px-8">Business Strategic Coach. Эксперт по управлению и развитию карьеры.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="register" class="py-32 neural-bg text-center px-6">
-        <h2 class="font-display text-4xl md:text-5xl text-[#6B3A3A] mb-12">Готовы стать востребованным экспертом?</h2>
-        <button onclick="window.open('https://shorturl.at/6xUts', '_blank')" class="btn-main text-xl">Записаться (25.02.2026)</button>
-    </section>
-
-    <footer class="py-12 bg-[#6B3A3A] text-white/60 text-center text-sm">
-        © 2026 EQ COURSE. Все права защищены.
-    </footer>
-
-</body>
-</html>
+        <p class="mt-12 font-display text-xl text-[#6B3A3A] max-w-2xl mx-auto leading-relaxed">
