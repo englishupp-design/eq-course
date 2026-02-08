@@ -25,127 +25,197 @@
     html { scroll-behavior: smooth; }
     .font-display { font-family: 'Cormorant Garamond', serif; }
     .font-body { font-family: 'Raleway', sans-serif; }
-    .gradient-hero { background: linear-gradient(135deg, var(--soft-cream) 0%, #F5E6E0 50%, var(--dirt-pink) 100%); }
-    .gradient-cta { background: linear-gradient(180deg, var(--soft-cream) 0%, #F0E0DC 100%); }
-    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.3s ease; }
-    .accordion-content.open { max-height: 500px; padding-top: 1rem; padding-bottom: 1rem; }
+    
+    .hero-pattern {
+      background-color: var(--soft-cream);
+      background-image: radial-gradient(circle at 2px 2px, rgba(107, 58, 58, 0.05) 1px, transparent 0);
+      background-size: 32px 32px;
+      position: relative;
+    }
+    .hero-pattern::before {
+      content: "";
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: radial-gradient(circle at top right, rgba(212, 165, 165, 0.2), transparent 40%);
+      pointer-events: none;
+    }
+
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+    .accordion-content.open { max-height: 500px; padding: 1rem 0; }
     .accordion-icon { transition: transform 0.3s ease; }
     .accordion-item.open .accordion-icon { transform: rotate(45deg); }
-    .btn-primary { background: var(--dark-brown-red); transition: all 0.3s ease; position: relative; overflow: hidden; }
-    .btn-primary:hover { background: #7D4545; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(107, 58, 58, 0.3); }
-    .module-number { width: 32px; height: 32px; background: var(--dirt-pink); color: var(--dark-brown-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; flex-shrink: 0; }
-    .speaker-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .speaker-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(107, 58, 58, 0.15); }
+    
+    .btn-primary { background: var(--dark-brown-red); transition: all 0.3s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(107, 58, 58, 0.2); }
+    
+    .module-card { border: 1px solid rgba(212, 165, 165, 0.3); transition: all 0.3s ease; }
+    .module-card:hover { border-color: var(--dirt-pink); background: white; }
   </style>
  </head>
- <body class="h-full font-body text-gray-800 overflow-auto" style="background-color: var(--clean-white);">
-  <div class="w-full h-full overflow-auto">
-    <nav class="sticky top-0 z-50 backdrop-blur-md border-b" style="background: rgba(254, 254, 254, 0.95); border-color: var(--dirt-pink);">
-     <div class="max-w-6xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-       <div class="font-display text-2xl font-bold" style="color: var(--dark-brown-red);">EQ</div>
-       <div class="hidden md:flex items-center space-x-8">
-        <a href="#about" class="nav-link text-sm tracking-wide" style="color: var(--dark-brown-red);">О курсе</a>
-        <a href="#program" class="nav-link text-sm tracking-wide" style="color: var(--dark-brown-red);">Программа</a>
-        <a href="#format" class="nav-link text-sm tracking-wide" style="color: var(--dark-brown-red);">Формат</a>
-        <a href="#speakers" class="nav-link text-sm tracking-wide" style="color: var(--dark-brown-red);">Спикеры</a>
-       </div>
-       <a href="#register" class="btn-primary text-white px-5 py-2 rounded-full text-sm font-medium">Записаться</a>
-      </div>
-     </div>
-    </nav>
+ <body class="h-full font-body text-gray-800 bg-[#FEFEFE]">
+  
+  <nav class="sticky top-0 z-50 backdrop-blur-md border-b bg-white/90 border-[#D4A5A5]/30">
+   <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="font-display text-2xl font-bold text-[#6B3A3A]">EQ COURSE</div>
+    <div class="hidden md:flex space-x-8 text-sm font-medium text-[#6B3A3A]">
+     <a href="#about" class="hover:opacity-70">О курсе</a>
+     <a href="#program" class="hover:opacity-70">Программа</a>
+     <a href="#speakers" class="hover:opacity-70">Спикеры</a>
+    </div>
+    <a href="#register" class="btn-primary text-white px-6 py-2 rounded-full text-sm font-medium">Записаться</a>
+   </div>
+  </nav>
 
-    <section class="gradient-hero min-h-[90%] flex items-center">
-     <div class="max-w-6xl mx-auto px-6 py-20">
-      <div class="max-w-4xl">
-       <p class="text-sm tracking-widest uppercase mb-6" style="color: var(--dark-brown-red);">Курс для преподавателей</p>
-       <h1 id="hero-title" class="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8" style="color: var(--dark-brown-red);">Эмоциональный интеллект как ключ к успеху современного преподавателя</h1>
-       <p id="hero-subtitle" class="text-lg md:text-xl leading-relaxed mb-12 max-w-3xl" style="color: #5A4040;">В современном мире знания больше не продашь так, как раньше. ИИ предоставит тебе их бесплатно. А умение выстраивать человеческие отношения, понимать страхи, чувствовать эмоции и контролировать свои — вот залог вашего успеха.</p>
-       <div class="relative p-8 rounded-2xl mb-12" style="background: rgba(107, 58, 58, 0.08); border-left: 4px solid var(--dark-brown-red);">
-        <p id="hero-slogan" class="font-display text-2xl md:text-3xl italic leading-relaxed pl-8" style="color: var(--dark-brown-red);">"Репетиторство больше не в моде и не в цене. Продавай своё время как полноценный, высококачественный сервис."</p>
-       </div>
-       <a href="#register" class="btn-primary inline-flex items-center text-white px-8 py-4 rounded-full text-lg font-medium">Узнать больше</a>
-      </div>
+  <header class="hero-pattern pt-20 pb-32">
+   <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-3xl">
+     <p class="text-sm tracking-widest uppercase mb-6 text-[#6B3A3A] font-semibold">Профессиональное развитие</p>
+     <h1 class="font-display text-5xl md:text-7xl font-bold text-[#6B3A3A] leading-tight mb-8">Эмоциональный интеллект преподавателя 2026</h1>
+     <p class="text-xl text-[#5A4040] mb-12 leading-relaxed">В мире ИИ умение выстраивать человеческие отношения и чувствовать эмоции — это единственный способ продавать свое время как высококачественный сервис.</p>
+     
+     <div class="flex flex-wrap gap-4 mb-12">
+      <div class="bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full border border-[#D4A5A5] text-[#6B3A3A] text-sm font-medium flex items-center gap-2"><span>🎯</span> Первый в РФ</div>
+      <div class="bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full border border-[#D4A5A5] text-[#6B3A3A] text-sm font-medium flex items-center gap-2"><span>📈</span> Тренд 2026</div>
+      <div class="bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full border border-[#D4A5A5] text-[#6B3A3A] text-sm font-medium flex items-center gap-2"><span>🧠</span> Научно доказано</div>
      </div>
-    </section>
+    </div>
+   </div>
+  </header>
 
-    <section id="program" class="py-24" style="background: var(--clean-white);">
-     <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-16">
-       <p class="text-sm tracking-widest uppercase mb-4" style="color: var(--dirt-pink);">Программа курса</p>
-       <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--dark-brown-red);">9 модулей погружения</h2>
-      </div>
-      <div class="space-y-4" id="accordion">
-       <div class="accordion-item rounded-2xl overflow-hidden" style="background: var(--soft-cream); border: 1px solid var(--dirt-pink);">
-        <button class="accordion-trigger w-full flex items-center justify-between p-6 text-left">
-         <div class="flex items-center gap-4">
-          <div class="module-number">1</div><span class="font-medium">История EI и его важность</span>
-         </div>
-         <svg class="accordion-icon w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-        <div class="accordion-content px-6"><p class="pl-12">Погружение в научные исследования, доказавшие: успех педагога на 80% зависит от эмоциональной зрелости.</p></div>
-       </div>
-       <div class="accordion-item rounded-2xl overflow-hidden" style="background: var(--soft-cream); border: 1px solid var(--dirt-pink);">
-        <button class="accordion-trigger w-full flex items-center justify-between p-6 text-left">
-         <div class="flex items-center gap-4">
-          <div class="module-number">5</div><span class="font-medium">Нейрофизиология обучения</span>
-         </div>
-         <svg class="accordion-icon w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-        <div class="accordion-content px-6"><p class="pl-12">Разбираем, как обходить «блокировки» амигдалы и включать префронтальную кору студента для быстрого прогресса.</p></div>
-       </div>
-       <div class="accordion-item rounded-2xl overflow-hidden" style="background: var(--soft-cream); border: 1px solid var(--dirt-pink);">
-        <button class="accordion-trigger w-full flex items-center justify-between p-6 text-left">
-         <div class="flex items-center gap-4">
-          <div class="module-number">6</div><span class="font-medium">Триггеры и модель SCARF</span>
-         </div>
-         <svg class="accordion-icon w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-        <div class="accordion-content px-6"><p class="pl-12">Научный метод управления вовлеченностью и лояльностью клиентов через понимание социальных триггеров.</p></div>
-       </div>
-      </div>
-     </div>
-    </section>
-
-    <section id="speakers" class="py-24" style="background: var(--soft-cream);">
-     <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16"><h2 class="font-display text-4xl font-bold" style="color: var(--dark-brown-red);">Спикеры</h2></div>
-      <div class="grid md:grid-cols-2 gap-12">
-       <div class="speaker-card p-8 rounded-3xl bg-white">
-        <div class="flex flex-col items-center text-center">
-         <div class="w-40 h-40 rounded-full mb-6 overflow-hidden border-4" style="border-color: var(--dirt-pink);"><img src="https://i.ibb.co/tTjZTxtv/image.jpg" alt="Валерия Баканова" style="width: 100%; height: 100%; object-fit: cover;"></div>
-         <h3 class="font-display text-2xl font-bold">Валерия Баканова</h3>
-         <p class="font-medium mb-4" style="color: var(--dirt-pink);">Professional Neurolanguage Coach</p>
-         <p class="text-sm text-gray-600">20+ лет опыта. Основатель языковой школы. Эксперт по нейронаукам в педагогике.</p>
+  <section id="program" class="py-24 -mt-20 relative z-10">
+   <div class="max-w-4xl mx-auto px-6">
+    <div class="bg-white rounded-3xl shadow-xl shadow-[#6B3A3A]/5 p-8 md:p-12 border border-[#FDF8F6]">
+     <h2 class="font-display text-4xl font-bold text-[#6B3A3A] mb-12 text-center">Программа курса</h2>
+     
+     <div class="space-y-4" id="accordion">
+      <div class="accordion-item module-card rounded-2xl">
+       <button class="accordion-trigger w-full flex items-center justify-between p-6">
+        <div class="flex items-center gap-4 text-[#6B3A3A] font-semibold">
+         <span class="opacity-50 font-display text-2xl">01</span> История EI и его важность
         </div>
-       </div>
-       <div class="speaker-card p-8 rounded-3xl bg-white">
-        <div class="flex flex-col items-center text-center">
-         <div class="w-40 h-40 rounded-full mb-6 overflow-hidden border-4" style="border-color: var(--dirt-pink);"><img src="https://i.ibb.co/qYYQjbp5/image.jpg" alt="Наталья Шубникова" style="width: 100%; height: 100%; object-fit: cover;"></div>
-         <h3 class="font-display text-2xl font-bold">Наталья Шубникова</h3>
-         <p class="font-medium mb-4" style="color: var(--dirt-pink);">Business Strategic Coach</p>
-         <p class="text-sm text-gray-600">Эксперт по управлению. Экс-топ-менеджер IT-компании. Стратег вашего карьерного роста.</p>
-        </div>
-       </div>
+        <span class="accordion-icon text-2xl">+</span>
+       </button>
+       <div class="accordion-content px-6 text-gray-600"><p class="pb-4">Научные основы и причины, по которым EQ стал главным навыком педагога в 2026 году.</p></div>
       </div>
-     </div>
-    </section>
 
-    <section id="register" class="py-24 gradient-cta text-center">
-     <div class="max-w-4xl mx-auto px-6">
-      <h2 id="cta-text" class="font-display text-3xl md:text-5xl font-bold mb-12" style="color: var(--dark-brown-red);">Эмоциональный интеллект: Ключ к успеху современного преподавателя</h2>
-      <button onclick="window.open('https://shorturl.at/6xUts', '_blank')" class="btn-primary text-white px-12 py-5 rounded-full text-xl font-medium">Зарегистрироваться</button>
-      <p class="mt-8 text-sm text-gray-600">Старт — 25.02.2026 • Места ограничены</p>
-     </div>
-    </section>
+      <div class="accordion-item module-card rounded-2xl">
+        <button class="accordion-trigger w-full flex items-center justify-between p-6">
+         <div class="flex items-center gap-4 text-[#6B3A3A] font-semibold">
+          <span class="opacity-50 font-display text-2xl">02</span> Бенефиты в преподавании
+         </div>
+         <span class="accordion-icon text-2xl">+</span>
+        </button>
+        <div class="accordion-content px-6 text-gray-600"><p class="pb-4">Как эмоциональная связь ускоряет процесс освоения иностранного языка и удерживает учеников.</p></div>
+       </div>
 
-    <footer class="py-12 text-center" style="background: var(--dark-brown-red); color: white;">
-     <p>© 2026 EQ для преподавателей. Все права защищены.</p>
-    </footer>
-  </div>
+      <div class="accordion-item module-card rounded-2xl">
+        <button class="accordion-trigger w-full flex items-center justify-between p-6">
+         <div class="flex items-center gap-4 text-[#6B3A3A] font-semibold">
+          <span class="opacity-50 font-display text-2xl">03</span> Бизнес и благополучие
+         </div>
+         <span class="accordion-icon text-2xl">+</span>
+        </button>
+        <div class="accordion-content px-6 text-gray-600"><p class="pb-4">Взаимосвязь между вашим внутренним состоянием и финансовыми результатами практики.</p></div>
+       </div>
+
+      <div class="accordion-item module-card rounded-2xl">
+        <button class="accordion-trigger w-full flex items-center justify-between p-6">
+         <div class="flex items-center gap-4 text-[#6B3A3A] font-semibold">
+          <span class="opacity-50 font-display text-2xl">04</span> Safety in learning
+         </div>
+         <span class="accordion-icon text-2xl">+</span>
+        </button>
+        <div class="accordion-content px-6 text-gray-600"><p class="pb-4">Создание психологически безопасной среды, где мозг студента работает максимально эффективно.</p></div>
+       </div>
+
+       <div class="accordion-item module-card rounded-2xl">
+        <button class="accordion-trigger w-full flex items-center justify-between p-6">
+         <div class="flex items-center gap-4 text-[#6B3A3A] font-semibold">
+          <span class="opacity-50 font-display text-2xl">05</span> Нейрофизиология обучения
+         </div>
+         <span class="accordion-icon text-2xl">+</span>
+        </button>
+        <div class="accordion-content px-6 text-gray-600"><p class="pb-4">Управление амигдалой и префронтальной корой для снятия языкового барьера.</p></div>
+       </div>
+
+       <div class="accordion-item module-card rounded-2xl">
+        <button class="accordion-trigger w-full flex items-center justify-between p-6">
+         <div class="flex items-center gap-4 text-[#6B3A3A] font-semibold">
+          <span class="opacity-50 font-display text-2xl">06</span> Модель SCARF
+         </div>
+         <span class="accordion-icon text-2xl">+</span>
+        </button>
+        <div class="accordion-content px-6 text-gray-600"><p class="pb-4">Применение социальной нейронауки для управления вовлеченностью и предотвращения конфликтов.</p></div>
+       </div>
+
+       <div class="accordion-item module-card rounded-2xl">
+        <button class="accordion-trigger w-full flex items-center justify-between p-6">
+         <div class="flex items-center gap-4 text-[#6B3A3A] font-semibold">
+          <span class="opacity-50 font-display text-2xl">07</span> EQ студентов
+         </div>
+         <span class="accordion-icon text-2xl">+</span>
+        </button>
+        <div class="accordion-content px-6 text-gray-600"><p class="pb-4">Техники идентификации эмоций студента и коучинговые инструменты работы с ними.</p></div>
+       </div>
+
+       <div class="accordion-item module-card rounded-2xl">
+        <button class="accordion-trigger w-full flex items-center justify-between p-6">
+         <div class="flex items-center gap-4 text-[#6B3A3A] font-semibold">
+          <span class="opacity-50 font-display text-2xl">08</span> Выгорание и баланс
+         </div>
+         <span class="accordion-icon text-2xl">+</span>
+        </button>
+        <div class="accordion-content px-6 text-gray-600"><p class="pb-4">Практические методы сохранения ресурса и выхода из состояния профессионального истощения.</p></div>
+       </div>
+
+       <div class="accordion-item module-card rounded-2xl bg-[#D4A5A5]/10 border-[#D4A5A5]">
+        <button class="accordion-trigger w-full flex items-center justify-between p-6 text-[#6B3A3A] font-bold">
+         <div class="flex items-center gap-4">
+          <span class="text-2xl">★</span> Бонус: Бизнес и Деньги
+         </div>
+         <span class="accordion-icon text-2xl">+</span>
+        </button>
+        <div class="accordion-content px-6 text-gray-700 font-medium"><p class="pb-4">Договоры, ценообразование и стратегия перехода на премиальный сервис.</p></div>
+       </div>
+
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <section id="speakers" class="py-24 bg-white">
+   <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16"><h2 class="font-display text-4xl font-bold text-[#6B3A3A]">Ваши наставники</h2></div>
+    <div class="grid md:grid-cols-2 gap-12">
+     <div class="p-8 rounded-3xl bg-[#FDF8F6] text-center">
+      <div class="w-40 h-40 rounded-full mx-auto mb-6 overflow-hidden border-4 border-[#D4A5A5]"><img src="https://i.ibb.co/tTjZTxtv/image.jpg" alt="Валерия Баканова" class="w-full h-full object-cover"></div>
+      <h3 class="font-display text-2xl font-bold text-[#6B3A3A]">Валерия Баканова</h3>
+      <p class="text-[#D4A5A5] font-medium mb-4">Professional Neurolanguage Coach</p>
+      <p class="text-sm text-gray-600">Teacher Trainer с 20-летним опытом. Эксперт по внедрению нейронаук в педагогику.</p>
+     </div>
+     <div class="p-8 rounded-3xl bg-[#FDF8F6] text-center">
+      <div class="w-40 h-40 rounded-full mx-auto mb-6 overflow-hidden border-4 border-[#D4A5A5]"><img src="https://i.ibb.co/qYYQjbp5/image.jpg" alt="Наталья Шубникова" class="w-full h-full object-cover"></div>
+      <h3 class="font-display text-2xl font-bold text-[#6B3A3A]">Наталья Шубникова</h3>
+      <p class="text-[#D4A5A5] font-medium mb-4">Business Strategic Coach</p>
+      <p class="text-sm text-gray-600">Эксперт по управлению бизнесом и стратегическому развитию карьеры.</p>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <section id="register" class="py-24 text-center hero-pattern">
+   <div class="max-w-2xl mx-auto px-6">
+    <h2 class="font-display text-4xl font-bold text-[#6B3A3A] mb-8">Займите своё место на курсе</h2>
+    <button onclick="window.open('https://shorturl.at/6xUts', '_blank')" class="btn-primary text-white px-12 py-5 rounded-full text-xl font-bold w-full md:w-auto uppercase tracking-wide">Записаться</button>
+    <p class="mt-6 text-[#6B3A3A] font-medium">Начало обучения: 25.02.2026</p>
+   </div>
+  </section>
+
+  <footer class="py-12 text-center bg-[#6B3A3A] text-white">
+   <p class="opacity-80">© 2026 EQ для преподавателей. Все права защищены.</p>
+  </footer>
 
   <script>
-    // Accordion Logic
     document.querySelectorAll('.accordion-trigger').forEach(trigger => {
       trigger.addEventListener('click', () => {
         const item = trigger.closest('.accordion-item');
