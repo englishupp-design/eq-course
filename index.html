@@ -680,31 +680,31 @@
     tick();
     setInterval(tick, 1000);
   </script>
+  <section id="payment-verification" class="py-12" style="background: var(--soft-cream); border-top: 1px solid var(--dirt-pink);">
+    <div class="max-w-xl mx-auto px-6 text-center">
+      <h3 class="font-display text-2xl mb-4" style="color: var(--dark-brown-red);">Тестовая оплата</h3>
+      <p class="mb-8 text-sm" style="color: #5A4040;">Раздел для технической проверки подключения ЮKassa</p>
+      
+      <div id="payment-form"></div>
+    </div>
+  </section>
+  
+  <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
+  
+  <script>
+    const checkout = new YooMoneyCheckoutWidget({
+      shopId: '1276140', 
+      // Используем ваш ключ для верификации
+      confirmation_token: 'test_wmmpoVZBgm3yOeMqVup_2aUMq5HaR3me1Zn8RMzz2QA', 
+      display: {
+        type: 'button',
+        text: 'Оплатить (Тест)',
+        color: '#6B3A3A' 
+      },
+      testMode: true 
+    });
+  
+    checkout.render('payment-form');
+  </script>
 </body>
-<section id="payment-verification" class="py-12" style="background: var(--soft-cream); border-top: 1px solid var(--dirt-pink);">
-  <div class="max-w-xl mx-auto px-6 text-center">
-    <h3 class="font-display text-2xl mb-4" style="color: var(--dark-brown-red);">Тестовая оплата</h3>
-    <p class="mb-8 text-sm" style="color: #5A4040;">Раздел для технической проверки подключения ЮKassa</p>
-    
-    <div id="payment-form"></div>
-  </div>
-</section>
-
-<script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
-
-<script>
-  const checkout = new YooMoneyCheckoutWidget({
-    shopId: '1276140', 
-    // Используем ваш ключ для верификации
-    confirmation_token: 'test_wmmpoVZBgm3yOeMqVup_2aUMq5HaR3me1Zn8RMzz2QA', 
-    display: {
-      type: 'button',
-      text: 'Оплатить (Тест)',
-      color: '#6B3A3A' 
-    },
-    testMode: true 
-  });
-
-  checkout.render('payment-form');
-</script>
 </html>
