@@ -112,7 +112,7 @@
   .speaker-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 600; color: var(--charcoal); margin-bottom: 6px; }
   .speaker-title { font-size: 0.82rem; color: var(--teal-mid); letter-spacing: 0.05em; margin-bottom: 24px; }
   .speaker-facts { list-style: none; text-align: left; width: 100%; margin-bottom: 24px; }
-  .speaker-facts li { font-size: 0.88rem; color: var(--text-mid); font-weight: 300; line-height: 1.6; padding: 7px 0; border-bottom: 1px solid rgba(45,74,78,0.06); display: flex; gap: 10px; align-items: flex-start; }
+  .speaker-facts li { font-size: 0.88rem; color: var(--text-mid); font-weight: 300; line-height: 1.6; padding: 7px 0; border-bottom: 1px solid rgba(45,74,78,0.06); text-align: left; }
   .speaker-facts li:last-child { border-bottom: none; }
   .bio-toggle { background: none; border: none; font-size: 0.85rem; font-weight: 500; color: var(--teal-dark); cursor: pointer; display: flex; align-items: center; gap: 6px; margin-top: 8px; padding: 8px 16px; border-radius: 6px; transition: background 0.2s; }
   .bio-toggle:hover { background: rgba(45,74,78,0.07); }
@@ -204,7 +204,38 @@
   .modal-box { background: var(--white); border-radius: 16px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 40px; position: relative; }
   .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.8rem; color: var(--text-mid); cursor: pointer; line-height: 1; }
 
-  /* REVEAL */
+  /* REVIEWS */
+  .reviews-slider-wrap { position: relative; }
+  .reviews-track-outer { overflow: hidden; }
+  .reviews-track { display: flex; gap: 28px; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+  .review-card { background: var(--white); border: 1px solid rgba(45,74,78,0.1); border-radius: 20px; padding: 36px 32px; display: flex; flex-direction: column; gap: 20px; transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s; cursor: default; position: relative; overflow: hidden; flex: 0 0 calc((100% - 56px) / 3); min-width: 0; }
+  .review-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal-dark), var(--beige)); transform: scaleX(0); transform-origin: left; transition: transform 0.35s; }
+  .review-card:hover { transform: translateY(-6px); box-shadow: 0 24px 56px rgba(45,74,78,0.12); border-color: rgba(45,74,78,0.18); }
+  .review-card:hover::before { transform: scaleX(1); }
+  .review-stars { color: var(--beige); font-size: 1.2rem; letter-spacing: 3px; }
+  .review-text-wrap { position: relative; }
+  .review-text { font-size: 0.92rem; color: var(--text-mid); line-height: 1.85; font-weight: 300; overflow: hidden; max-height: 112px; transition: max-height 0.5s ease; }
+  .review-text.expanded { max-height: 600px; }
+  .review-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 48px; background: linear-gradient(transparent, var(--white)); transition: opacity 0.3s; pointer-events: none; }
+  .review-fade.hidden { opacity: 0; }
+  .review-toggle { background: none; border: none; font-size: 0.82rem; font-weight: 500; color: var(--teal-dark); cursor: pointer; padding: 0; display: flex; align-items: center; gap: 5px; transition: color 0.2s; margin-top: -8px; }
+  .review-toggle:hover { color: var(--teal-mid); }
+  .review-toggle svg { transition: transform 0.3s; }
+  .review-toggle.expanded svg { transform: rotate(180deg); }
+  .review-footer { border-top: 1px solid rgba(45,74,78,0.08); padding-top: 16px; margin-top: auto; }
+  .review-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--charcoal); margin-bottom: 4px; }
+  .review-meta { font-size: 0.8rem; color: var(--teal-mid); letter-spacing: 0.04em; }
+  .reviews-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 40px; }
+  .reviews-arrow { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(45,74,78,0.18); background: var(--white); color: var(--teal-dark); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+  .reviews-arrow:hover { background: var(--teal-dark); color: var(--white); border-color: var(--teal-dark); }
+  .reviews-arrow:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+  .reviews-dots { display: flex; gap: 8px; }
+  .reviews-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(45,74,78,0.2); cursor: pointer; transition: all 0.25s; border: none; padding: 0; }
+  .reviews-dot.active { background: var(--teal-dark); transform: scale(1.25); }
+  @media (max-width: 900px) { .review-card { flex: 0 0 calc((100% - 28px) / 2); } }
+  @media (max-width: 600px) { .review-card { flex: 0 0 100%; } }
+
+
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -225,9 +256,9 @@
   <ul class="nav-links">
     <li><a href="#about">О курсе</a></li>
     <li><a href="#forwho">Частным лицам</a></li>
+    <li><a href="#business" onclick="switchTabFromNav()">Для бизнеса</a></li>
     <li><a href="#speakers">Спикеры</a></li>
     <li><a href="#pricing">Стоимость</a></li>
-    <li><a href="#business" onclick="switchTabFromNav()">Для бизнеса</a></li>
     <li><a href="#register" class="nav-cta">Записаться</a></li>
   </ul>
 </nav>
@@ -347,10 +378,10 @@
         <div class="speaker-name">Валерия Баканова</div>
         <div class="speaker-title">Professional Neurolanguage Coach</div>
         <ul class="speaker-facts">
-          <li><span>🎓</span><span>Сертифицированный и аккредитованный Neurolanguage Coach и Teacher Trainer</span></li>
-          <li><span>⏱</span><span>Преподаватель английского с 20-летним опытом</span></li>
-          <li><span>🏫</span><span>Основатель языковой школы</span></li>
-          <li><span>🧠</span><span>Эксперт по внедрению нейронауки в педагогическую практику и персонализации обучения</span></li>
+          <li>Сертифицированный и аккредитованный Neurolanguage Coach и Teacher Trainer</li>
+          <li>Преподаватель английского с 20-летним опытом</li>
+          <li>Основатель языковой школы</li>
+          <li>Эксперт по внедрению нейронауки в педагогическую практику и персонализации обучения</li>
         </ul>
         <button class="bio-toggle">
           <span class="bio-toggle-text">Читать историю</span>
@@ -367,10 +398,10 @@
         <div class="speaker-name">Наталья Шубникова</div>
         <div class="speaker-title">Professional Life & Business Strategic Coach</div>
         <ul class="speaker-facts">
-          <li><span>💼</span><span>Сертифицированный и аккредитованный Life & Business Strategic Coach</span></li>
-          <li><span>🏢</span><span>Эксперт по управлению бизнесом</span></li>
-          <li><span>🚀</span><span>В прошлом — топ-менеджер IT-компании</span></li>
-          <li><span>📈</span><span>Специалист по стратегическому развитию личности и карьеры</span></li>
+          <li>Сертифицированный и аккредитованный Life & Business Strategic Coach</li>
+          <li>Эксперт по управлению бизнесом</li>
+          <li>В прошлом — топ-менеджер IT-компании</li>
+          <li>Специалист по стратегическому развитию личности и карьеры</li>
         </ul>
         <button class="bio-toggle">
           <span class="bio-toggle-text">Читать историю</span>
@@ -381,6 +412,135 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section style="background:var(--off-white); padding:100px 5%;" id="reviews">
+  <div class="section-inner">
+    <div class="section-label">Отзывы</div>
+    <h2 class="section-title">Что говорят участники</h2>
+    <div class="reviews-slider-wrap">
+      <div class="reviews-track-outer">
+        <div class="reviews-track" id="reviewsTrack">
+
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text-wrap">
+          <p class="review-text">Прохождение этого курса стало для моего проекта стратегически важным решением. Предложенные знания выходят далеко за рамки базовых навыков управления: глубокое понимание различных профессиональных контекстов сделало программу максимально прикладной и актуальной для специфики работы моей команды. В процессе обучения мы не только прокачали понимание бизнес-процессов, но и кардинально изменили то, как мы общаемся, сотрудничаем друг с другом и выстраиваем отношения с нашими внешними партнерами и коллегами. Каждый блок программы привносил уникальное сочетание ясности, поддержки и мотивации. Мы искренне благодарны за системный подход и ту огромную ценность, которую этот опыт принес нашему бизнесу.</p>
+          <div class="review-fade"></div>
+        </div>
+        <button class="review-toggle" onclick="toggleReview(this)">
+          Читать дальше <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="review-footer">
+          <div class="review-name">Александр</div>
+          <div class="review-meta">Владелец информационного бизнеса</div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text-wrap">
+          <p class="review-text">Огромное спасибо за знания, полученные на курсе! Блок об эмоциональном интеллекте — особенно о важности отдыха и о том, как не принимать поведение учеников на свой счет — стал для меня настоящим спасением. Программа помогла мне осознать, что реакции в классе часто отражают динамику группы, а не мою профессиональную ценность. Инструменты для сохранения спокойствия в эмоционально напряженных ситуациях оказались бесценными: теперь я чувствую себя гораздо увереннее, сбалансированнее и устойчивее, даже когда обстановка в школе становится сложной.</p>
+          <div class="review-fade"></div>
+        </div>
+        <button class="review-toggle" onclick="toggleReview(this)">
+          Читать дальше <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="review-footer">
+          <div class="review-name">Екатерина</div>
+          <div class="review-meta">Учитель английского в средней школе</div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text-wrap">
+          <p class="review-text">После прохождения курса у меня и моей небольшой команды словно выросли крылья. Нам нужно было в сжатые сроки подготовиться к масштабному отраслевому событию, и всего за два месяца обучения мы научились уверенно представлять мой бренд, используя принципы эффективного бизнес-взаимодействия. Искренне рекомендую этот курс всем предпринимателям, которым нужны быстрые, сфокусированные результаты и работа только над тем, что действительно важно для бизнеса, без лишней траты времени.</p>
+          <div class="review-fade"></div>
+        </div>
+        <button class="review-toggle" onclick="toggleReview(this)">
+          Читать дальше <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="review-footer">
+          <div class="review-name">Юлия</div>
+          <div class="review-meta">Владелец косметической клиники и бренда натуральной косметики</div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text-wrap">
+          <p class="review-text">Этот курс стал для меня настоящим открытием и дал мощный импульс моей частной практике. Программа помогла мне не просто улучшить деловую коммуникацию, но и глубоко разобраться в психологии взаимодействия с людьми. Самым ценным стало прикладное применение эмоционального интеллекта: теперь я знаю, как не принимать реакции клиентов на свой счет и сохранять внутреннее спокойствие даже в самых непростых ситуациях. Обучение предоставило мне своего рода «безопасное пространство» для обсуждения сложных моментов в работе и дало конкретные инструменты, чтобы оставаться в ресурсе и понимать истинные причины поведения окружающих.</p>
+          <div class="review-fade"></div>
+        </div>
+        <button class="review-toggle" onclick="toggleReview(this)">
+          Читать дальше <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="review-footer">
+          <div class="review-name">Ирина</div>
+          <div class="review-meta">Корпоративный преподаватель</div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text-wrap">
+          <p class="review-text">Обучение стало для меня точкой опоры в борьбе с «синдромом самозванца» и помогло распутать клубок ограничивающих убеждений о моем статусе. Благодаря курсу я получила структурированное видение своих целей, расставила приоритеты и теперь точно знаю свои следующие шаги. Программа дает удивительную возможность самостоятельно находить ответы на сложные вопросы через правильно выстроенную систему обучения, что позволяет уверенно презентовать свой бренд и работать только над тем, что действительно важно для дела, не тратя время на лишнее.</p>
+          <div class="review-fade"></div>
+        </div>
+        <button class="review-toggle" onclick="toggleReview(this)">
+          Читать дальше <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="review-footer">
+          <div class="review-name">Наталья</div>
+          <div class="review-meta">Частный предприниматель</div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text-wrap">
+          <p class="review-text">Уже после первых модулей в моей работе начались реальные продуктивные изменения: я научился сохранять устойчивость в эмоционально напряженных ситуациях и фокусироваться только на том, что действительно важно для развития дела, не тратя время на лишнее. Программа дала мне не просто знания, а работающие инструменты для понимания того, что на самом деле стоит за поведением людей, и как это использовать для достижения бизнес-целей.</p>
+          <div class="review-fade"></div>
+        </div>
+        <button class="review-toggle" onclick="toggleReview(this)">
+          Читать дальше <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="review-footer">
+          <div class="review-name">Татьяна</div>
+          <div class="review-meta">Владелец бизнеса</div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text-wrap">
+          <p class="review-text">Особенно ценно было в рамках обучения осознать, как мои эмоции напрямую влияют на принятие решений и мой статус. Я поражена, насколько эффективно в программе выстроена отработка навыка управления состоянием: благодаря глубоким практикам и структурному подходу, я сама пришла к ответам на сложные вопросы, которые раньше вызывали только тревогу и ступор. Программа дала мне не просто теорию, а реальный опыт проживания и трансформации своих состояний. Это совершенно новый уровень понимания себя!</p>
+          <div class="review-fade"></div>
+        </div>
+        <button class="review-toggle" onclick="toggleReview(this)">
+          Читать дальше <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="review-footer">
+          <div class="review-name">Юлия</div>
+          <div class="review-meta">Владелец языковой школы</div>
+        </div>
+      </div>
+
+      </div><!-- end reviews-track -->
+      </div><!-- end reviews-track-outer -->
+      <div class="reviews-controls">
+        <button class="reviews-arrow" id="reviewsPrev" onclick="slideReviews(-1)" aria-label="Назад">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div class="reviews-dots" id="reviewsDots"></div>
+        <button class="reviews-arrow" id="reviewsNext" onclick="slideReviews(1)" aria-label="Вперёд">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div><!-- end reviews-slider-wrap -->
   </div>
 </section>
 
@@ -416,7 +576,7 @@
         <div class="biz-card reveal"><div class="biz-icon">🎤</div><h3>Тематические вебинары</h3><p>Одноразовые вебинары по ключевым аспектам EQ с фокусом на ваш конкретный запрос.</p></div>
         <div class="biz-card reveal"><div class="biz-icon">⚡</div><h3>Воркшопы</h3><p>Интенсивные практические воркшопы для отработки навыков в реальных ситуациях вашей команды.</p></div>
       </div>
-      <a href="#register" class="btn-outline" style="margin-top:40px; display:inline-block;">Обсудить для бизнеса</a>
+      <a href="https://form.jotform.com/260822334021040" target="_blank" class="btn-outline" style="margin-top:40px; display:inline-block;">Обсудить сотрудничество</a>
     </div>
   </div>
 </section>
@@ -478,8 +638,8 @@
 <section class="cta-section" id="register">
   <div style="max-width:1100px; margin:0 auto; text-align:center;">
     <h2>Эмоциональный интеллект:<br>модный термин или<br>главный фактор успеха?</h2>
-    <p>Старт — 09.03.2026 · Ограниченное количество мест</p>
-    <a href="https://shorturl.at/6xUts" target="_blank" class="btn-primary" style="background:var(--white); color:var(--teal-dark);">Зарегистрироваться на курс</a>
+    <p>Ограниченное количество мест</p>
+    <a href="https://shorturl.at/6xUts" target="_blank" class="btn-primary" style="background:var(--white); color:var(--teal-dark);">Выбрать формат работы</a>
   </div>
 </section>
 
@@ -536,43 +696,43 @@
   <div class="modal-box" style="max-width:680px;">
     <button class="modal-close" onclick="closeModal()">×</button>
     <div style="margin-bottom:8px; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal-mid);">Программа курса</div>
-    <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--teal-dark); margin-bottom:28px; line-height:1.2;">9 модулей глубокого погружения</h2>
+    <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--teal-dark); margin-bottom:28px; line-height:1.2;">9 модулей трансформационной практики</h2>
     <div id="modal-accordion">
       <div class="modal-acc-item">
-        <button class="modal-acc-trigger"><span class="modal-acc-num">1</span><span class="modal-acc-name">История EI и его важность</span><span class="modal-acc-icon">+</span></button>
-        <div class="modal-acc-content"><p>Погружение в историю развития концепции эмоционального интеллекта, научные исследования и практическое применение в современном мире.</p></div>
+        <button class="modal-acc-trigger"><span class="modal-acc-num">1</span><span class="modal-acc-name">Возникновение EI и его важность</span><span class="modal-acc-icon">+</span></button>
+        <div class="modal-acc-content"><p>Как люди пришли к важности EI и его изучению. История термина от древних философов до наших дней, эволюция понятия EQ, главные исследования и внедрение программ SEL в образовательных заведениях. Влияние EQ на разные сферы жизни человека.</p></div>
       </div>
       <div class="modal-acc-item">
-        <button class="modal-acc-trigger"><span class="modal-acc-num">2</span><span class="modal-acc-name">Бенефиты в преподавании языков</span><span class="modal-acc-icon">+</span></button>
-        <div class="modal-acc-content"><p>Как эмоциональный интеллект повышает эффективность преподавания и ускоряет прогресс студентов в изучении языков.</p></div>
+        <button class="modal-acc-trigger"><span class="modal-acc-num">2</span><span class="modal-acc-name">Бенефиты EI в преподавании иностранного языка</span><span class="modal-acc-icon">+</span></button>
+        <div class="modal-acc-content"><p>Модель ЭИ Ричарда Бояциса. Практические сценарии: как удержать внимание ученика, работать с «закрывающимися» студентами, справляться с эмоциональным истощением. Связь ЭИ с мотивацией, памятью и идентичностью учащегося. Роль эмпатии, эмоционального резонанса и рефлексии как инструментов преподавателя.</p></div>
       </div>
       <div class="modal-acc-item">
-        <button class="modal-acc-trigger"><span class="modal-acc-num">3</span><span class="modal-acc-name">Связь с бизнесом и благополучием</span><span class="modal-acc-icon">+</span></button>
-        <div class="modal-acc-content"><p>Взаимосвязь EQ с финансовым успехом, удержанием клиентов и личным благополучием преподавателя.</p></div>
+        <button class="modal-acc-trigger"><span class="modal-acc-num">3</span><span class="modal-acc-name">Угрозы для мозга и безопасная среда обучения</span><span class="modal-acc-icon">+</span></button>
+        <div class="modal-acc-content"><p>Состояния мозга, позитивно и негативно влияющие на обучение. Слова, форматы и действия, воспринимаемые как угрозы: давление, критика, сравнения, вопросы-ловушки. Как работать с учеником, мозг которого испытывает угрозу. Коучинговые практики для коммуникации с родителями и ЛПР. Связь EI и монетизации деятельности преподавателя.</p></div>
       </div>
       <div class="modal-acc-item">
-        <button class="modal-acc-trigger"><span class="modal-acc-num">4</span><span class="modal-acc-name">Безопасность в обучении (Safety)</span><span class="modal-acc-icon">+</span></button>
-        <div class="modal-acc-content"><p>Создание психологически безопасной среды для эффективного обучения и раскрытия потенциала студентов.</p></div>
+        <button class="modal-acc-trigger"><span class="modal-acc-num">4</span><span class="modal-acc-name">Нейрофизиология: мозг, амигдала и обучение</span><span class="modal-acc-icon">+</span></button>
+        <div class="modal-acc-content"><p>«Триединый мозг» и роль каждой части. Амигдала и обработка страха и стресса — разбор реальных ситуаций. Префронтальная кора, рабочая память и нейропластичность. Кортизол и его опасность. Как положительные и отрицательные эмоции влияют на формирование нейронных связей и прогресс ученика.</p></div>
       </div>
       <div class="modal-acc-item">
-        <button class="modal-acc-trigger"><span class="modal-acc-num">5</span><span class="modal-acc-name">Нейрофизиология: части мозга и амигдала</span><span class="modal-acc-icon">+</span></button>
-        <div class="modal-acc-content"><p>Научные основы работы мозга в контексте эмоций и обучения. Роль амигдалы в процессе запоминания.</p></div>
+        <button class="modal-acc-trigger"><span class="modal-acc-num">5</span><span class="modal-acc-name">Идеальное состояние для обучения</span><span class="modal-acc-icon">+</span></button>
+        <div class="modal-acc-content"><p>Что такое идеальная среда обучения и как её создать. Допамин vs. кортизол — мотивация и демотивация. Позитивные и негативные эмоциональные аттракторы. Состояние «потока» (Flow) и волны головного мозга. Два состояния мозга — эмоциональное и рациональное — и как с ними работать.</p></div>
       </div>
       <div class="modal-acc-item">
         <button class="modal-acc-trigger"><span class="modal-acc-num">6</span><span class="modal-acc-name">Эмоциональные триггеры и модель SCARF</span><span class="modal-acc-icon">+</span></button>
-        <div class="modal-acc-content"><p>Распознавание собственных эмоциональных триггеров и применение модели SCARF для управления взаимодействием.</p></div>
+        <div class="modal-acc-content"><p>Что такое триггер и его связь с прошлым опытом. Типичные триггеры преподавателя, техники моментальной саморегуляции и долгосрочные стратегии работы с ними. Модель SCARF — поведение преподавателя с точки зрения социальных факторов. Как давать обратную связь и коучинговые практики для успешного преподавания.</p></div>
       </div>
       <div class="modal-acc-item">
-        <button class="modal-acc-trigger"><span class="modal-acc-num">7</span><span class="modal-acc-name">EQ студента: идентификация и коучинг</span><span class="modal-acc-icon">+</span></button>
-        <div class="modal-acc-content"><p>Техники распознавания эмоций студентов и коучинговые инструменты для работы с ними. Демо-практика.</p></div>
+        <button class="modal-acc-trigger"><span class="modal-acc-num">7</span><span class="modal-acc-name">Триггеры и травмы студента: распознать и помочь</span><span class="modal-acc-icon">+</span></button>
+        <div class="modal-acc-content"><p>Разница между триггерами и травмами в обучении. Разборы реальных ситуаций: как травма продолжает жить в теле и влиять на учебный процесс. Техники распознавания и воздействия на ситуацию — коучинг, симуляции, упражнения.</p></div>
       </div>
       <div class="modal-acc-item">
-        <button class="modal-acc-trigger"><span class="modal-acc-num">8</span><span class="modal-acc-name">Выгорание и баланс</span><span class="modal-acc-icon">+</span></button>
-        <div class="modal-acc-content"><p>Профилактика профессионального выгорания и создание устойчивого баланса между работой и личной жизнью.</p></div>
+        <button class="modal-acc-trigger"><span class="modal-acc-num">8</span><span class="modal-acc-name">Выгорание: заметить и остаться в балансе</span><span class="modal-acc-icon">+</span></button>
+        <div class="modal-acc-content"><p>Стадии и симптомы профессионального выгорания. Эмоциональное истощение vs. эмоциональная устойчивость. Техники восстановления эмоционального ресурса и профилактика через эмоциональную гигиену.</p></div>
       </div>
       <div class="modal-acc-item modal-acc-item--bonus">
-        <button class="modal-acc-trigger"><span class="modal-acc-num" style="background:var(--beige);color:var(--charcoal);">★</span><span class="modal-acc-name">Бонус: Бизнес-составляющая</span><span class="modal-acc-icon">+</span></button>
-        <div class="modal-acc-content"><p>Практические аспекты ведения бизнеса: договоры, системы оплаты, ценообразование и позиционирование услуг.</p></div>
+        <button class="modal-acc-trigger"><span class="modal-acc-num" style="background:var(--beige);color:var(--charcoal);">★</span><span class="modal-acc-name">Бонус: Материальная составляющая практики</span><span class="modal-acc-icon">+</span></button>
+        <div class="modal-acc-content"><p>Практические аспекты ведения практики преподавателя: заключение договора, сложности с оплатой, определение стоимости услуг, варианты сотрудничества и форматы пакетных предложений.</p></div>
       </div>
     </div>
     <div style="margin-top:24px; padding:14px 20px; background:rgba(78,127,132,0.07); border:1px solid rgba(78,127,132,0.2); border-radius:10px; font-size:0.85rem; color:var(--text-mid);">✨ Курс включает: демо-практики, мозговые штурмы и групповую работу</div>
@@ -653,7 +813,60 @@
     });
   });
 
-  // Scroll reveal
+  // Reviews slider
+  (function() {
+    const track = document.getElementById('reviewsTrack');
+    const dotsContainer = document.getElementById('reviewsDots');
+    const cards = track.querySelectorAll('.review-card');
+    let current = 0;
+
+    function getVisible() {
+      if (window.innerWidth <= 600) return 1;
+      if (window.innerWidth <= 900) return 2;
+      return 3;
+    }
+
+    function totalSlides() { return Math.ceil(cards.length / getVisible()); }
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalSlides(); i++) {
+        const d = document.createElement('button');
+        d.className = 'reviews-dot' + (i === current ? ' active' : '');
+        d.onclick = () => goTo(i);
+        dotsContainer.appendChild(d);
+      }
+    }
+
+    function goTo(index) {
+      current = Math.max(0, Math.min(index, totalSlides() - 1));
+      const visible = getVisible();
+      const cardWidth = cards[0].offsetWidth + 28;
+      track.style.transform = `translateX(-${current * visible * cardWidth}px)`;
+      document.getElementById('reviewsPrev').disabled = current === 0;
+      document.getElementById('reviewsNext').disabled = current >= totalSlides() - 1;
+      dotsContainer.querySelectorAll('.reviews-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    window.slideReviews = (dir) => goTo(current + dir);
+
+    buildDots();
+    goTo(0);
+    window.addEventListener('resize', () => { buildDots(); goTo(0); });
+  })();
+
+
+  function toggleReview(btn) {
+    const text = btn.previousElementSibling.querySelector('.review-text');
+    const fade = btn.previousElementSibling.querySelector('.review-fade');
+    const isExpanded = text.classList.contains('expanded');
+    text.classList.toggle('expanded');
+    fade.classList.toggle('hidden');
+    btn.classList.toggle('expanded');
+    btn.childNodes[0].textContent = isExpanded ? 'Читать дальше ' : 'Свернуть ';
+  }
+
+
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
