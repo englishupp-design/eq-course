@@ -182,6 +182,34 @@
   .accordion-content.open{max-height:300px;padding-top:16px;padding-bottom:20px;}
   .accordion-content p{color:rgba(237,224,206,0.65);font-size:0.9rem;line-height:1.7;font-weight:300;}
 
+  /* LIBRARY SECTION */
+  .library-section{background:var(--bg);padding:100px 5%;}
+  .library-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px;}
+  .library-card{background:var(--white);border-radius:20px;overflow:hidden;transition:all 0.35s;position:relative;display:flex;flex-direction:column;box-shadow:0 4px 24px rgba(45,74,74,0.07);}
+  .library-card:hover{transform:translateY(-6px);box-shadow:0 24px 56px rgba(45,74,74,0.13);}
+  .library-card-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
+  .library-card-body{padding:24px 28px 28px;display:flex;flex-direction:column;flex:1;gap:14px;}
+  .library-card-type{font-size:0.72rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-mid);}
+  .library-card-title{font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-weight:600;color:var(--near-black);line-height:1.25;}
+  /* expandable desc */
+  .library-desc-wrap{position:relative;}
+  .library-card-desc{font-size:0.9rem;color:var(--text-mid);line-height:1.85;font-weight:300;overflow:hidden;max-height:72px;transition:max-height 0.45s ease;}
+  .library-card-desc.expanded{max-height:600px;}
+  .library-desc-fade{position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,var(--white));pointer-events:none;transition:opacity 0.3s;}
+  .library-desc-fade.hidden{opacity:0;}
+  .library-read-toggle{background:none;border:none;font-size:0.82rem;font-weight:500;color:var(--teal-dark);cursor:pointer;display:flex;align-items:center;gap:5px;padding:0;transition:color 0.2s;margin-top:-4px;}
+  .library-read-toggle:hover{color:var(--teal-mid);}
+  .library-read-toggle svg{transition:transform 0.3s;}
+  .library-read-toggle.expanded svg{transform:rotate(180deg);}
+  .library-card-cta{display:inline-block;background:var(--sand);color:var(--near-black);text-decoration:none;font-size:0.82rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:13px 28px;border-radius:4px;transition:all 0.25s;border:none;cursor:pointer;align-self:flex-start;margin-top:4px;}
+  .library-card-cta:hover{background:var(--sand-light);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.12);}
+  /* coming soon placeholder */
+  .library-card--placeholder{box-shadow:none;border:1.5px dashed rgba(45,74,74,0.15);background:rgba(237,224,206,0.35);}
+  .library-card--placeholder .library-card-body{opacity:0.45;}
+  .library-placeholder-badge{position:absolute;top:16px;right:16px;background:rgba(201,168,124,0.22);border:1px solid rgba(201,168,124,0.4);border-radius:100px;padding:4px 12px;font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--sand);}
+  .library-placeholder-img{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,rgba(45,74,74,0.08),rgba(201,168,124,0.08));display:flex;align-items:center;justify-content:center;}
+  .library-placeholder-img span{font-size:2rem;opacity:0.3;}
+
   /* BOOK A CALL */
   .book-section{background:var(--bg);padding:100px 5%;}
 
@@ -250,6 +278,7 @@
     .speakers-grid{grid-template-columns:1fr;}
     .offerings-grid{grid-template-columns:1fr;}
     .biz-grid{grid-template-columns:1fr;}
+    .library-grid{grid-template-columns:1fr;}
     .model-flow{flex-direction:column;gap:12px;}
     .model-arrow{transform:rotate(90deg);}
     .tabs-nav{overflow-x:auto;padding-bottom:4px;}
@@ -258,6 +287,7 @@
     #tab-business > div{padding:32px 20px!important;}
     .footer-bottom{flex-direction:column;text-align:center;}
     .cta-section h2{padding:24px 28px!important;}
+    .library-section{padding:70px 5%;}
   }
 </style>
 </head>
@@ -275,6 +305,7 @@
     <li><a href="#formats" onclick="switchTab('individuals',document.querySelectorAll('.tab-btn')[0])">Частным лицам</a></li>
     <li><a href="#formats" onclick="switchTabBiz()">Для бизнеса</a></li>
     <li><a href="#curriculum">Программа</a></li>
+    <li><a href="#library">Библиотека</a></li>
     <li><a href="#formats" class="nav-cta">Записаться</a></li>
     <li style="margin-left:16px;"><a href="#bookcall" class="nav-book">Записаться на звонок</a></li>
   </ul>
@@ -292,6 +323,7 @@
   <a href="#formats" onclick="switchTab('individuals',document.querySelectorAll('.tab-btn')[0]);closeMenu()">Частным лицам</a>
   <a href="#formats" onclick="switchTabBiz();closeMenu()">Для бизнеса</a>
   <a href="#curriculum" onclick="closeMenu()">Программа</a>
+  <a href="#library" onclick="closeMenu()">Библиотека</a>
   <a href="#formats" class="mob-cta" onclick="closeMenu()">Записаться</a>
   <a href="#bookcall" class="mob-book" onclick="closeMenu()">Записаться на звонок</a>
 </div>
@@ -500,7 +532,7 @@
           <div class="offerings-grid">
             <div class="offering-card" onclick="animateTag(this)">
               <div class="offering-tag">Вебинар</div>
-              <h3 class="offering-title">Эмоциональный Интеллект как Ключевой фактор успеха</h3>
+              <h3 class="offering-title">Мастерство ЭИ</h3>
               <p class="offering-desc">Однократный онлайн-вебинар — идеальная точка входа, чтобы познакомиться с темой EQ, задать вопросы спикерам и понять, как это работает на практике.</p>
               <a href="https://englishupp-design.github.io/webinar/" target="_blank" class="btn-primary" onclick="event.stopPropagation()">Узнать больше про вебинар</a>
             </div>
@@ -550,6 +582,38 @@
     <div style="margin-top:28px;padding:14px 20px;background:rgba(91,184,178,0.08);border:1px solid rgba(91,184,178,0.2);border-radius:10px;font-size:0.85rem;color:rgba(237,224,206,0.7);">✨ Курс включает: демо-практики, мозговые штурмы и групповую работу</div>
     <div style="margin-top:32px;text-align:center;">
       <a href="https://shorturl.at/6xUts" target="_blank" class="btn-primary">Записаться на курс</a>
+    </div>
+  </div>
+</section>
+
+<!-- LIBRARY -->
+<section class="library-section" id="library">
+  <div class="section-inner">
+    <div class="section-label">Библиотека ресурсов</div>
+    <h2 class="section-title">Материалы и события</h2>
+    <div class="divider"></div>
+    <p style="font-size:1rem;line-height:1.85;color:var(--text-mid);max-width:640px;font-weight:300;margin-bottom:0;">Избранные форматы — вебинары, статьи и практические материалы — для тех, кто хочет глубже погрузиться в тему эмоционального интеллекта.</p>
+
+    <div class="library-grid">
+
+      <!-- CARD 1 — Webinar Mastery EI -->
+      <div class="library-card reveal">
+        <img src="https://raw.githubusercontent.com/englishupp-design/diagram/main/image%205.png" alt="Мастерство ЭИ" class="library-card-img">
+        <div class="library-card-body">
+          <div class="library-card-type">Вебинар</div>
+          <div class="library-card-title">Мастерство ЭИ</div>
+          <div class="library-desc-wrap">
+            <p class="library-card-desc" id="libDesc1">Двухчасовое погружение в эмоциональный интеллект. Мы начнём с теории, в которой представим мир без эмоционального интеллекта, чтобы в действительности оценить его важность и необходимость в любых сферах нашей жизни. Вы узнаете, как формируется эмоция, её «этапы» и что происходит у нас в голове и в нашем теле, когда мы проживаем разные эмоции, почему люди склонны зацикливаться на плохом и замечать больше негатив, чем позитив. В практической части разберём 6 примеров из реальной жизни, близких абсолютно всем, — в которых эмоциональный интеллект станет незаменимым инструментом сохранения собственных сил, энергии и ресурсов. За эти два часа вы станете понимать себя и других лучше, и практикуя полученные знания, сможете помочь себе жить в гармонии с собой и другими.</p>
+            <div class="library-desc-fade" id="libFade1"></div>
+          </div>
+          <button class="library-read-toggle" id="libToggle1" onclick="toggleLibDesc(1)">
+            <span>Читать подробнее</span>
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <a href="https://englishupp-design.github.io/webinar/" target="_blank" class="library-card-cta">Узнать больше</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -720,6 +784,17 @@ document.querySelectorAll(".modal-acc-trigger").forEach(btn => {
 document.querySelectorAll(".offering-card .btn-primary").forEach(btn=>{
   btn.addEventListener("click", e=>e.stopPropagation());
 });
+
+function toggleLibDesc(id){
+  const desc = document.getElementById("libDesc"+id);
+  const fade = document.getElementById("libFade"+id);
+  const toggle = document.getElementById("libToggle"+id);
+  const isExp = desc.classList.contains("expanded");
+  desc.classList.toggle("expanded");
+  if(fade) fade.classList.toggle("hidden");
+  toggle.classList.toggle("expanded");
+  toggle.querySelector("span").textContent = isExp ? "Читать подробнее" : "Свернуть";
+}
 
 function toggleReview(btn){
   const text = btn.previousElementSibling.querySelector(".review-text");
