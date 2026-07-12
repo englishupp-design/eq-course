@@ -187,8 +187,10 @@
   .modal-acc-content p{font-size:0.88rem;color:var(--text-mid);line-height:1.75;font-weight:300;}
   .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.55s ease,transform 0.55s ease;}
   .reveal.visible{opacity:1;transform:translateY(0);}
+  .forwho-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
   .hamburger{display:none;}
   @media(max-width:768px){
+    .forwho-grid{grid-template-columns:1fr!important;gap:16px;}
     .footer-grid{grid-template-columns:1fr;gap:32px;}
     .nav-links{display:none;}
     .nav-cta,.nav-book{display:none;}
@@ -271,7 +273,7 @@
 <section style="background:var(--bg);padding:100px 5%;" id="forwho">
   <div class="section-inner">
     <div style="font-size:0.9rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:24px;">Для кого</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:8px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:8px;" class="forwho-grid">
       <div class="card reveal">
         <div style="font-size:0.75rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:16px;">Для качества личной жизни</div>
         <p>Для тех, кто устал быть удобным, хочет наладить контакт с собой и перестать разрушать связи с близкими. Чтобы меньше реагировать на стресс и жить более счастливую, сбалансированную жизнь — потому что даже если вы уже умеете управлять своими эмоциями, окружающие люди пока нет. А жить вам с ними рядом.</p>
