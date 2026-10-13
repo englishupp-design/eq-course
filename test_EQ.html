@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Тест на уровень эмоционального интеллекта — НейроЛаб. 36 вопросов, научный подход, персональные рекомендации.">
+<title>Тест на ЭИ — НейроЛаб</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep-teal:  #1E3535;
+  --teal-dark:  #2D4A4A;
+  --teal-mid:   #3A5C5C;
+  --teal-light: #5BB8B2;
+  --sand:       #C9A87C;
+  --sand-light: #DFC9A8;
+  --bg:         #EDE0CE;
+  --near-black: #1A1F1F;
+  --white:      #ffffff;
+  --text-dim:   rgba(237,224,206,0.65);
+  --text-dimmer:rgba(237,224,206,0.4);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--deep-teal);
+  color: var(--white);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content:"";
+  position:fixed; inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 85% 15%, rgba(91,184,178,0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 5% 85%,  rgba(201,168,124,0.07) 0%, transparent 65%);
+  pointer-events:none; z-index:0;
+}
+
+/* NAV */
+nav {
+  position: sticky; top:0; z-index:100;
+  background: rgba(10,20,20,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(201,168,124,0.15);
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.nav-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--sand-light);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+.nav-back {
+  font-size: 0.82rem;
+  color: var(--text-dimmer);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--sand-light); }
+
+/* HERO */
+.hero {
+  position: relative; z-index:1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 72px 5% 48px;
+  text-align: center;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(91,184,178,0.1);
+  border: 1px solid rgba(91,184,178,0.28);
+  border-radius: 100px;
+  padding: 7px 18px;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 28px;
+}
+.badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:.35;transform:scale(.75);}
+}
+.hero h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.18;
+  margin-bottom: 18px;
+}
+.hero h1 em { font-style:italic; color: var(--sand-light); }
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.75;
+  max-width: 580px;
+  margin: 0 auto 40px;
+}
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: 44px;
+}
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-dimmer);
+}
+.meta-icon { color: var(--sand); font-size: 1rem; }
+
+.btn-start {
+  display: inline-block;
+  background: var(--sand);
+  color: var(--near-black);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 18px 52px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  transition: all 0.25s;
+}
+.btn-start:hover {
+  background: var(--sand-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(201,168,124,0.3);
+}
+
+/* PROGRESS BAR */
+.progress-wrap {
+  position: sticky; top: 64px; z-index:90;
+  background: rgba(10,20,20,0.8);
+  backdrop-filter: blur(10px);
+  padding: 12px 5%;
+  display: none;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid rgba(201,168,124,0.1);
+}
+.progress-wrap.show { display: flex; }
+.progress-label {
+  font-size: 0.78rem;
+  color: var(--text-dimmer);
+  white-space: nowrap;
+  min-width: 90px;
+}
+.progress-bar-outer {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal-light), var(--sand));
+  border-radius: 2px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.progress-pct {
+  font-size: 0.78rem;
+  color: var(--sand);
+  min-width: 34px;
+  text-align: right;
+}
+
+/* QUIZ CONTAINER */
+.quiz-wrap {
+  position: relative; z-index:1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 5% 80px;
+  display: none;
+}
+.quiz-wrap.show { display: block; }
+
+/* BLOCK HEADER */
+.block-header {
+  margin-bottom: 32px;
+  padding-top: 40px;
+}
+.block-num {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 8px;
+}
+.block-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.25;
+}
+.block-title em { font-style: italic; color: var(--sand-light); }
+.block-divider {
+  width: 40px; height: 2px;
+  background: var(--sand);
+  opacity: 0.5;
+  margin-top: 16px;
+}
+
+/* QUESTION CARD */
+.question-card {
+  background: rgba(10,20,20,0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(201,168,124,0.15);
+  border-radius: 16px;
+  padding: 32px 36px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s;
+}
+.question-card.answered { border-color: rgba(91,184,178,0.3); }
+
+.q-num {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dimmer);
+  margin-bottom: 10px;
+}
+.q-text {
+  font-size: clamp(0.95rem, 1.8vw, 1.08rem);
+  font-weight: 400;
+  line-height: 1.65;
+  margin-bottom: 22px;
+  color: var(--bg);
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.option-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.93rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+.option-label:hover {
+  border-color: rgba(201,168,124,0.35);
+  background: rgba(201,168,124,0.06);
+  color: var(--white);
+}
+.option-label input[type="radio"] { display:none; }
+.option-label.selected {
+  border-color: var(--sand);
+  background: rgba(201,168,124,0.12);
+  color: var(--white);
+}
+.option-label.selected .opt-marker {
+  background: var(--sand);
+  color: var(--near-black);
+  border-color: var(--sand);
+}
+.opt-marker {
+  width: 26px; height: 26px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-dimmer);
+  transition: all 0.2s;
+  margin-top: 1px;
+}
+
+/* SUBMIT BTN */
+.submit-wrap {
+  text-align: center;
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(201,168,124,0.12);
+}
+.btn-submit {
+  background: var(--sand);
+  color: var(--near-black);
+  border: none;
+  border-radius: 4px;
+  padding: 18px 60px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: inline-block;
+}
+.btn-submit:hover:not(:disabled) {
+  background: var(--sand-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(201,168,124,0.3);
+}
+.btn-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.submit-note {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--text-dimmer);
+}
+
+/* RESULT PAGE */
+.result-wrap {
+  position: relative; z-index:1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 64px 5% 80px;
+  display: none;
+}
+.result-wrap.show { display: block; }
+
+.result-score-ring {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.score-circle {
+  width: 130px; height: 130px;
+  border-radius: 50%;
+  border: 3px solid var(--sand);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 40px rgba(201,168,124,0.2);
+  background: rgba(10,20,20,0.5);
+}
+.score-num {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--sand);
+}
+.score-max {
+  font-size: 0.72rem;
+  color: var(--text-dimmer);
+  letter-spacing: 0.1em;
+}
+.result-level-badge {
+  display: inline-block;
+  background: rgba(91,184,178,0.12);
+  border: 1px solid rgba(91,184,178,0.3);
+  border-radius: 100px;
+  padding: 7px 22px;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+}
+
+.result-card {
+  background: rgba(10,20,20,0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(201,168,124,0.2);
+  border-radius: 20px;
+  padding: 44px 44px;
+  margin-bottom: 28px;
+}
+.result-card h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
+.result-card h2 em { font-style:italic; color: var(--sand-light); }
+.result-card p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.78;
+  margin-bottom: 16px;
+}
+.result-card p:last-child { margin-bottom: 0; }
+
+.result-section-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: 16px;
+  margin-top: 28px;
+}
+.tips-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.tips-list li {
+  display: flex;
+  gap: 12px;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.65;
+}
+.tip-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--sand);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.today-block {
+  background: rgba(91,184,178,0.07);
+  border: 1px solid rgba(91,184,178,0.2);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin-top: 24px;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(237,224,206,0.8);
+  line-height: 1.7;
+}
+.today-block strong {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* CTA BLOCK */
+.cta-block {
+  background: rgba(10,20,20,0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(201,168,124,0.25);
+  border-radius: 20px;
+  padding: 48px 44px;
+  margin-top: 28px;
+  text-align: center;
+}
+.cta-block h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+.cta-block h3 em { font-style: italic; color: var(--sand-light); }
+.cta-block p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto 36px;
+}
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-cta-primary {
+  background: var(--sand);
+  color: var(--near-black);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 4px;
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.btn-cta-primary:hover {
+  background: var(--sand-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(201,168,124,0.3);
+}
+.btn-cta-secondary {
+  background: transparent;
+  color: var(--sand-light);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 15px 36px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(201,168,124,0.45);
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.btn-cta-secondary:hover {
+  border-color: var(--sand);
+  background: rgba(201,168,124,0.08);
+}
+
+.retake-link {
+  display: block;
+  margin-top: 28px;
+  font-size: 0.82rem;
+  color: var(--text-dimmer);
+  cursor: pointer;
+  transition: color 0.2s;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-family: "DM Sans", sans-serif;
+}
+.retake-link:hover { color: var(--sand-light); }
+
+/* BLOCK SCORES */
+.block-scores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 6px;
+}
+.block-score-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.bsi-name {
+  font-size: 0.78rem;
+  color: var(--text-dimmer);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.bsi-bar-outer {
+  height: 4px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.bsi-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal-light), var(--sand));
+  border-radius: 2px;
+}
+.bsi-score {
+  font-size: 0.78rem;
+  color: var(--sand);
+  text-align: right;
+}
+
+/* FOOTER */
+footer {
+  position: relative; z-index:1;
+  text-align: center;
+  padding: 28px 5%;
+  border-top: 1px solid rgba(201,168,124,0.1);
+  font-size: 0.78rem;
+  color: var(--text-dimmer);
+}
+footer a { color: var(--text-dimmer); text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: var(--sand-light); }
+
+/* PRODUCT CARDS inside CTA */
+.product-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  text-align: left;
+  margin-top: 8px;
+}
+.product-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+}
+.product-card-featured {
+  border-color: rgba(201,168,124,0.35);
+  background: rgba(201,168,124,0.05);
+}
+.product-card-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  border: 1px solid rgba(91,184,178,0.3);
+  border-radius: 100px;
+  display: inline-block;
+  padding: 4px 12px;
+  margin-bottom: 14px;
+  align-self: flex-start;
+}
+.product-card-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 12px;
+  color: var(--white);
+}
+.product-card-desc {
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.72;
+  margin-bottom: 16px;
+}
+.product-card-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+  flex: 1;
+}
+.product-card-list li {
+  font-size: 0.83rem;
+  font-weight: 300;
+  color: rgba(237,224,206,0.6);
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+}
+.product-card-list li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--sand);
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+@media(max-width:600px){
+  .question-card { padding: 24px 20px; }
+  .result-card, .cta-block { padding: 32px 24px; }
+  .block-scores { grid-template-columns: 1fr; }
+  .product-cards { grid-template-columns: 1fr; }
+  .cta-buttons { flex-direction: column; align-items: stretch; }
+  .btn-cta-primary, .btn-cta-secondary { text-align: center; }
+  .hero-meta { gap:16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://neurolabexperts.org" class="nav-brand">НейроЛаб</a>
+  <a href="https://neurolabexperts.org" class="nav-back">
+    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Вернуться на сайт
+  </a>
+</nav>
+
+<!-- PROGRESS (hidden until quiz starts) -->
+<div class="progress-wrap" id="progressWrap">
+  <span class="progress-label" id="progressLabel">Вопрос 1 из 36</span>
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progressBar"></div>
+  </div>
+  <span class="progress-pct" id="progressPct">0%</span>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="heroSection">
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Тест на эмоциональный интеллект
+  </div>
+  <h1>Насколько развит<br>ваш <em>эмоциональный<br>интеллект?</em></h1>
+  <p class="hero-sub">36 вопросов, 6 ключевых сфер — и точный портрет того, как вы воспринимаете, понимаете и управляете эмоциями. Без правильных и неправильных ответов — только честная картина.</p>
+  <div class="hero-meta">
+    <span class="meta-item"><span class="meta-icon">◎</span> 36 вопросов</span>
+    <span class="meta-item"><span class="meta-icon">◎</span> ~10 минут</span>
+    <span class="meta-item"><span class="meta-icon">◎</span> 6 сфер ЭИ</span>
+    <span class="meta-item"><span class="meta-icon">◎</span> Персональный результат</span>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Начать тест</button>
+</section>
+
+<!-- QUIZ -->
+<div class="quiz-wrap" id="quizWrap">
+
+  <!-- BLOCK 1 -->
+  <div class="block-header">
+    <div class="block-num">Блок 1 из 6</div>
+    <h2 class="block-title"><em>Самосознание</em></h2>
+    <div class="block-divider"></div>
+  </div>
+
+  <div class="question-card" id="card-1">
+    <div class="q-num">Вопрос 1</div>
+    <p class="q-text">Когда вы расстроены, вы обычно понимаете, что именно вас расстроило?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,1,'A',0)"><input type="radio" name="q1"><span class="opt-marker">A</span>Нет, обычно я просто чувствую, что что-то не так</label>
+      <label class="option-label" onclick="selectOption(this,1,'B',1)"><input type="radio" name="q1"><span class="opt-marker">B</span>Иногда, но не всегда</label>
+      <label class="option-label" onclick="selectOption(this,1,'C',2)"><input type="radio" name="q1"><span class="opt-marker">C</span>Чаще да, хотя не сразу</label>
+      <label class="option-label" onclick="selectOption(this,1,'D',3)"><input type="radio" name="q1"><span class="opt-marker">D</span>Да, почти всегда могу точно назвать причину</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-2">
+    <div class="q-num">Вопрос 2</div>
+    <p class="q-text">Насколько точно вы можете описать своё эмоциональное состояние в данный момент?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,2,'A',0)"><input type="radio" name="q2"><span class="opt-marker">A</span>Мне сложно — «хорошо» или «плохо», и не более</label>
+      <label class="option-label" onclick="selectOption(this,2,'B',1)"><input type="radio" name="q2"><span class="opt-marker">B</span>Иногда нахожу слова, иногда нет</label>
+      <label class="option-label" onclick="selectOption(this,2,'C',2)"><input type="radio" name="q2"><span class="opt-marker">C</span>Обычно могу подобрать несколько точных слов</label>
+      <label class="option-label" onclick="selectOption(this,2,'D',3)"><input type="radio" name="q2"><span class="opt-marker">D</span>Легко — у меня богатый «эмоциональный словарь»</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-3">
+    <div class="q-num">Вопрос 3</div>
+    <p class="q-text">Замечаете ли вы, как ваше настроение влияет на принятие решений?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,3,'A',0)"><input type="radio" name="q3"><span class="opt-marker">A</span>Нет, решения принимаю рационально</label>
+      <label class="option-label" onclick="selectOption(this,3,'B',1)"><input type="radio" name="q3"><span class="opt-marker">B</span>Иногда замечаю постфактум</label>
+      <label class="option-label" onclick="selectOption(this,3,'C',2)"><input type="radio" name="q3"><span class="opt-marker">C</span>Обычно замечаю в процессе</label>
+      <label class="option-label" onclick="selectOption(this,3,'D',3)"><input type="radio" name="q3"><span class="opt-marker">D</span>Да, учитываю это осознанно</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-4">
+    <div class="q-num">Вопрос 4</div>
+    <p class="q-text">Знаете ли вы, какие ситуации чаще всего выводят вас из равновесия?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,4,'A',0)"><input type="radio" name="q4"><span class="opt-marker">A</span>Нет, это всегда неожиданность</label>
+      <label class="option-label" onclick="selectOption(this,4,'B',1)"><input type="radio" name="q4"><span class="opt-marker">B</span>Частично, некоторые триггеры знакомы</label>
+      <label class="option-label" onclick="selectOption(this,4,'C',2)"><input type="radio" name="q4"><span class="opt-marker">C</span>Знаю большинство своих триггеров</label>
+      <label class="option-label" onclick="selectOption(this,4,'D',3)"><input type="radio" name="q4"><span class="opt-marker">D</span>Да, хорошо понимаю свои триггеры и готовлюсь заранее</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-5">
+    <div class="q-num">Вопрос 5</div>
+    <p class="q-text">Как часто вы замечаете физические сигналы эмоций в теле (напряжение, учащённое сердцебиение и т. п.)?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,5,'A',0)"><input type="radio" name="q5"><span class="opt-marker">A</span>Редко или никогда</label>
+      <label class="option-label" onclick="selectOption(this,5,'B',1)"><input type="radio" name="q5"><span class="opt-marker">B</span>Иногда, если эмоция уже очень сильная</label>
+      <label class="option-label" onclick="selectOption(this,5,'C',2)"><input type="radio" name="q5"><span class="opt-marker">C</span>Достаточно регулярно</label>
+      <label class="option-label" onclick="selectOption(this,5,'D',3)"><input type="radio" name="q5"><span class="opt-marker">D</span>Постоянно — тело для меня как барометр</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-6">
+    <div class="q-num">Вопрос 6</div>
+    <p class="q-text">Насколько хорошо вы понимаете, как другие воспринимают вас эмоционально?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,6,'A',0)"><input type="radio" name="q6"><span class="opt-marker">A</span>Почти не думаю об этом</label>
+      <label class="option-label" onclick="selectOption(this,6,'B',1)"><input type="radio" name="q6"><span class="opt-marker">B</span>Иногда задумываюсь, но без уверенности</label>
+      <label class="option-label" onclick="selectOption(this,6,'C',2)"><input type="radio" name="q6"><span class="opt-marker">C</span>Обычно имею неплохое представление</label>
+      <label class="option-label" onclick="selectOption(this,6,'D',3)"><input type="radio" name="q6"><span class="opt-marker">D</span>Хорошо понимаю своё эмоциональное влияние на окружающих</label>
+    </div>
+  </div>
+
+  <!-- BLOCK 2 -->
+  <div class="block-header">
+    <div class="block-num">Блок 2 из 6</div>
+    <h2 class="block-title"><em>Саморегуляция</em></h2>
+    <div class="block-divider"></div>
+  </div>
+
+  <div class="question-card" id="card-7">
+    <div class="q-num">Вопрос 7</div>
+    <p class="q-text">Когда вы злитесь, как обычно реагируете?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,7,'A',0)"><input type="radio" name="q7"><span class="opt-marker">A</span>Говорю или делаю то, о чём потом жалею</label>
+      <label class="option-label" onclick="selectOption(this,7,'B',1)"><input type="radio" name="q7"><span class="opt-marker">B</span>Пытаюсь сдержаться, но не всегда получается</label>
+      <label class="option-label" onclick="selectOption(this,7,'C',2)"><input type="radio" name="q7"><span class="opt-marker">C</span>Чаще удаётся сделать паузу перед реакцией</label>
+      <label class="option-label" onclick="selectOption(this,7,'D',3)"><input type="radio" name="q7"><span class="opt-marker">D</span>Осознанно выбираю, как ответить</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-8">
+    <div class="q-num">Вопрос 8</div>
+    <p class="q-text">Как долго вы обычно «приходите в себя» после сильного стресса или конфликта?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,8,'A',0)"><input type="radio" name="q8"><span class="opt-marker">A</span>Долго — часами или даже днями</label>
+      <label class="option-label" onclick="selectOption(this,8,'B',1)"><input type="radio" name="q8"><span class="opt-marker">B</span>Несколько часов</label>
+      <label class="option-label" onclick="selectOption(this,8,'C',2)"><input type="radio" name="q8"><span class="opt-marker">C</span>Обычно возвращаюсь в норму быстро</label>
+      <label class="option-label" onclick="selectOption(this,8,'D',3)"><input type="radio" name="q8"><span class="opt-marker">D</span>Довольно быстро — у меня есть практики восстановления</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-9">
+    <div class="q-num">Вопрос 9</div>
+    <p class="q-text">Можете ли вы сохранять спокойствие и ясность мышления под давлением?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,9,'A',0)"><input type="radio" name="q9"><span class="opt-marker">A</span>Нет, давление быстро выбивает меня из колеи</label>
+      <label class="option-label" onclick="selectOption(this,9,'B',1)"><input type="radio" name="q9"><span class="opt-marker">B</span>С трудом, но стараюсь</label>
+      <label class="option-label" onclick="selectOption(this,9,'C',2)"><input type="radio" name="q9"><span class="opt-marker">C</span>В большинстве случаев справляюсь</label>
+      <label class="option-label" onclick="selectOption(this,9,'D',3)"><input type="radio" name="q9"><span class="opt-marker">D</span>Да — давление даже помогает мне сосредоточиться</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-10">
+    <div class="q-num">Вопрос 10</div>
+    <p class="q-text">Как вы справляетесь с тревогой перед важным событием?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,10,'A',0)"><input type="radio" name="q10"><span class="opt-marker">A</span>Тревога меня парализует или сильно мешает</label>
+      <label class="option-label" onclick="selectOption(this,10,'B',1)"><input type="radio" name="q10"><span class="opt-marker">B</span>С трудом справляюсь, помогает время</label>
+      <label class="option-label" onclick="selectOption(this,10,'C',2)"><input type="radio" name="q10"><span class="opt-marker">C</span>Есть несколько приёмов, которые помогают</label>
+      <label class="option-label" onclick="selectOption(this,10,'D',3)"><input type="radio" name="q10"><span class="opt-marker">D</span>Хорошо умею использовать тревогу как энергию</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-11">
+    <div class="q-num">Вопрос 11</div>
+    <p class="q-text">Удаётся ли вам оставаться продуктивным, когда вы чем-то расстроены или разочарованы?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,11,'A',0)"><input type="radio" name="q11"><span class="opt-marker">A</span>Нет, расстройство полностью блокирует меня</label>
+      <label class="option-label" onclick="selectOption(this,11,'B',1)"><input type="radio" name="q11"><span class="opt-marker">B</span>С большим трудом</label>
+      <label class="option-label" onclick="selectOption(this,11,'C',2)"><input type="radio" name="q11"><span class="opt-marker">C</span>Чаще да — удаётся отделить чувства от задач</label>
+      <label class="option-label" onclick="selectOption(this,11,'D',3)"><input type="radio" name="q11"><span class="opt-marker">D</span>Да, умею переключаться и работать даже в сложном состоянии</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-12">
+    <div class="q-num">Вопрос 12</div>
+    <p class="q-text">Как часто вы говорите или делаете что-то импульсивно, о чём потом сожалеете?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,12,'A',0)"><input type="radio" name="q12"><span class="opt-marker">A</span>Часто</label>
+      <label class="option-label" onclick="selectOption(this,12,'B',1)"><input type="radio" name="q12"><span class="opt-marker">B</span>Иногда</label>
+      <label class="option-label" onclick="selectOption(this,12,'C',2)"><input type="radio" name="q12"><span class="opt-marker">C</span>Редко</label>
+      <label class="option-label" onclick="selectOption(this,12,'D',3)"><input type="radio" name="q12"><span class="opt-marker">D</span>Практически никогда</label>
+    </div>
+  </div>
+
+  <!-- BLOCK 3 -->
+  <div class="block-header">
+    <div class="block-num">Блок 3 из 6</div>
+    <h2 class="block-title"><em>Эмпатия</em></h2>
+    <div class="block-divider"></div>
+  </div>
+
+  <div class="question-card" id="card-13">
+    <div class="q-num">Вопрос 13</div>
+    <p class="q-text">Замечаете ли вы, когда кому-то рядом плохо — даже если он об этом не говорит?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,13,'A',0)"><input type="radio" name="q13"><span class="opt-marker">A</span>Редко — обычно узнаю, только когда мне скажут</label>
+      <label class="option-label" onclick="selectOption(this,13,'B',1)"><input type="radio" name="q13"><span class="opt-marker">B</span>Иногда замечаю что-то неладное</label>
+      <label class="option-label" onclick="selectOption(this,13,'C',2)"><input type="radio" name="q13"><span class="opt-marker">C</span>Чаще всего замечаю по поведению и тону</label>
+      <label class="option-label" onclick="selectOption(this,13,'D',3)"><input type="radio" name="q13"><span class="opt-marker">D</span>Да, хорошо чувствую состояние окружающих</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-14">
+    <div class="q-num">Вопрос 14</div>
+    <p class="q-text">Когда друг рассказывает о проблеме, ваша первая реакция — советовать или слушать?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,14,'A',0)"><input type="radio" name="q14"><span class="opt-marker">A</span>Сразу пытаюсь решить проблему</label>
+      <label class="option-label" onclick="selectOption(this,14,'B',1)"><input type="radio" name="q14"><span class="opt-marker">B</span>Слушаю немного, потом даю совет</label>
+      <label class="option-label" onclick="selectOption(this,14,'C',2)"><input type="radio" name="q14"><span class="opt-marker">C</span>Стараюсь сначала понять, что он чувствует</label>
+      <label class="option-label" onclick="selectOption(this,14,'D',3)"><input type="radio" name="q14"><span class="opt-marker">D</span>Сначала полностью принимаю его переживание, потом спрашиваю, нужен ли совет</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-15">
+    <div class="q-num">Вопрос 15</div>
+    <p class="q-text">Как легко вам представить себя на месте другого человека, особенно если он сильно отличается от вас?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,15,'A',0)"><input type="radio" name="q15"><span class="opt-marker">A</span>Очень трудно — я смотрю со своей точки зрения</label>
+      <label class="option-label" onclick="selectOption(this,15,'B',1)"><input type="radio" name="q15"><span class="opt-marker">B</span>С трудом, но стараюсь</label>
+      <label class="option-label" onclick="selectOption(this,15,'C',2)"><input type="radio" name="q15"><span class="opt-marker">C</span>Обычно могу, если постараюсь</label>
+      <label class="option-label" onclick="selectOption(this,15,'D',3)"><input type="radio" name="q15"><span class="opt-marker">D</span>Легко — для меня это естественно</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-16">
+    <div class="q-num">Вопрос 16</div>
+    <p class="q-text">Замечаете ли вы, что ваш тон или слова задели кого-то — даже если вы не хотели этого?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,16,'A',0)"><input type="radio" name="q16"><span class="opt-marker">A</span>Редко — узнаю об этом только потом</label>
+      <label class="option-label" onclick="selectOption(this,16,'B',1)"><input type="radio" name="q16"><span class="opt-marker">B</span>Иногда замечаю, иногда нет</label>
+      <label class="option-label" onclick="selectOption(this,16,'C',2)"><input type="radio" name="q16"><span class="opt-marker">C</span>Обычно замечаю в момент разговора</label>
+      <label class="option-label" onclick="selectOption(this,16,'D',3)"><input type="radio" name="q16"><span class="opt-marker">D</span>Да, хорошо отслеживаю реакцию собеседника в реальном времени</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-17">
+    <div class="q-num">Вопрос 17</div>
+    <p class="q-text">Как вы реагируете, когда кто-то расстроен или плачет рядом с вами?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,17,'A',0)"><input type="radio" name="q17"><span class="opt-marker">A</span>Чувствую дискомфорт и стараюсь побыстрее это остановить</label>
+      <label class="option-label" onclick="selectOption(this,17,'B',1)"><input type="radio" name="q17"><span class="opt-marker">B</span>Сочувствую, но не всегда знаю, что делать</label>
+      <label class="option-label" onclick="selectOption(this,17,'C',2)"><input type="radio" name="q17"><span class="opt-marker">C</span>Стараюсь поддержать — дать пространство или слова</label>
+      <label class="option-label" onclick="selectOption(this,17,'D',3)"><input type="radio" name="q17"><span class="opt-marker">D</span>Спокойно присутствую рядом, не пытаясь «починить»</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-18">
+    <div class="q-num">Вопрос 18</div>
+    <p class="q-text">Умеете ли вы адаптировать стиль общения под разных людей?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,18,'A',0)"><input type="radio" name="q18"><span class="opt-marker">A</span>Нет, общаюсь одинаково со всеми</label>
+      <label class="option-label" onclick="selectOption(this,18,'B',1)"><input type="radio" name="q18"><span class="opt-marker">B</span>Замечаю разницу, но редко адаптируюсь</label>
+      <label class="option-label" onclick="selectOption(this,18,'C',2)"><input type="radio" name="q18"><span class="opt-marker">C</span>Стараюсь учитывать особенности собеседника</label>
+      <label class="option-label" onclick="selectOption(this,18,'D',3)"><input type="radio" name="q18"><span class="opt-marker">D</span>Да, легко меняю стиль в зависимости от человека и контекста</label>
+    </div>
+  </div>
+
+  <!-- BLOCK 4 -->
+  <div class="block-header">
+    <div class="block-num">Блок 4 из 6</div>
+    <h2 class="block-title"><em>Социальные навыки</em></h2>
+    <div class="block-divider"></div>
+  </div>
+
+  <div class="question-card" id="card-19">
+    <div class="q-num">Вопрос 19</div>
+    <p class="q-text">Как вы обычно ведёте себя в конфликтной ситуации?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,19,'A',0)"><input type="radio" name="q19"><span class="opt-marker">A</span>Избегаю конфликта или взрываюсь</label>
+      <label class="option-label" onclick="selectOption(this,19,'B',1)"><input type="radio" name="q19"><span class="opt-marker">B</span>Пытаюсь урегулировать, но часто с трудом</label>
+      <label class="option-label" onclick="selectOption(this,19,'C',2)"><input type="radio" name="q19"><span class="opt-marker">C</span>Стараюсь найти компромисс</label>
+      <label class="option-label" onclick="selectOption(this,19,'D',3)"><input type="radio" name="q19"><span class="opt-marker">D</span>Спокойно выслушиваю обе стороны и ищу решение</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-20">
+    <div class="q-num">Вопрос 20</div>
+    <p class="q-text">Умеете ли вы вдохновлять или мотивировать других?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,20,'A',0)"><input type="radio" name="q20"><span class="opt-marker">A</span>Нет, это не моё</label>
+      <label class="option-label" onclick="selectOption(this,20,'B',1)"><input type="radio" name="q20"><span class="opt-marker">B</span>Иногда, если я сам в ресурсе</label>
+      <label class="option-label" onclick="selectOption(this,20,'C',2)"><input type="radio" name="q20"><span class="opt-marker">C</span>Чаще да — могу поддержать и воодушевить</label>
+      <label class="option-label" onclick="selectOption(this,20,'D',3)"><input type="radio" name="q20"><span class="opt-marker">D</span>Да, люди часто идут ко мне за поддержкой и энергией</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-21">
+    <div class="q-num">Вопрос 21</div>
+    <p class="q-text">Насколько легко вам строить доверие с новыми людьми?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,21,'A',0)"><input type="radio" name="q21"><span class="opt-marker">A</span>С трудом — доверие даётся тяжело</label>
+      <label class="option-label" onclick="selectOption(this,21,'B',1)"><input type="radio" name="q21"><span class="opt-marker">B</span>Постепенно, требует времени</label>
+      <label class="option-label" onclick="selectOption(this,21,'C',2)"><input type="radio" name="q21"><span class="opt-marker">C</span>Достаточно легко — обычно люди открываются</label>
+      <label class="option-label" onclick="selectOption(this,21,'D',3)"><input type="radio" name="q21"><span class="opt-marker">D</span>Легко — умею создать атмосферу доверия с первых минут</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-22">
+    <div class="q-num">Вопрос 22</div>
+    <p class="q-text">Как вы справляетесь с ситуацией, когда нужно донести неприятную новость?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,22,'A',0)"><input type="radio" name="q22"><span class="opt-marker">A</span>Избегаю или говорю резко</label>
+      <label class="option-label" onclick="selectOption(this,22,'B',1)"><input type="radio" name="q22"><span class="opt-marker">B</span>Говорю, но с трудом подбираю слова</label>
+      <label class="option-label" onclick="selectOption(this,22,'C',2)"><input type="radio" name="q22"><span class="opt-marker">C</span>Стараюсь быть деликатным и честным одновременно</label>
+      <label class="option-label" onclick="selectOption(this,22,'D',3)"><input type="radio" name="q22"><span class="opt-marker">D</span>Умею говорить трудные вещи так, чтобы сохранить отношения</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-23">
+    <div class="q-num">Вопрос 23</div>
+    <p class="q-text">Удаётся ли вам сохранять рабочие отношения с людьми, с которыми вы в чём-то не согласны?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,23,'A',0)"><input type="radio" name="q23"><span class="opt-marker">A</span>Трудно — разногласия часто рушат отношения</label>
+      <label class="option-label" onclick="selectOption(this,23,'B',1)"><input type="radio" name="q23"><span class="opt-marker">B</span>Иногда, зависит от человека</label>
+      <label class="option-label" onclick="selectOption(this,23,'C',2)"><input type="radio" name="q23"><span class="opt-marker">C</span>Обычно да — умею отделять позицию от человека</label>
+      <label class="option-label" onclick="selectOption(this,23,'D',3)"><input type="radio" name="q23"><span class="opt-marker">D</span>Да, несогласие для меня не мешает хорошим отношениям</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-24">
+    <div class="q-num">Вопрос 24</div>
+    <p class="q-text">Замечаете ли вы невербальные сигналы в разговоре — мимику, позу, интонацию?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,24,'A',0)"><input type="radio" name="q24"><span class="opt-marker">A</span>Редко — фокусируюсь на словах</label>
+      <label class="option-label" onclick="selectOption(this,24,'B',1)"><input type="radio" name="q24"><span class="opt-marker">B</span>Иногда обращаю внимание</label>
+      <label class="option-label" onclick="selectOption(this,24,'C',2)"><input type="radio" name="q24"><span class="opt-marker">C</span>Достаточно регулярно</label>
+      <label class="option-label" onclick="selectOption(this,24,'D',3)"><input type="radio" name="q24"><span class="opt-marker">D</span>Постоянно — невербальный язык для меня очень информативен</label>
+    </div>
+  </div>
+
+  <!-- BLOCK 5 -->
+  <div class="block-header">
+    <div class="block-num">Блок 5 из 6</div>
+    <h2 class="block-title"><em>Устойчивость и стресс</em></h2>
+    <div class="block-divider"></div>
+  </div>
+
+  <div class="question-card" id="card-25">
+    <div class="q-num">Вопрос 25</div>
+    <p class="q-text">Как вы справляетесь с неопределённостью и неконтролируемыми ситуациями?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,25,'A',0)"><input type="radio" name="q25"><span class="opt-marker">A</span>Неопределённость меня очень тревожит</label>
+      <label class="option-label" onclick="selectOption(this,25,'B',1)"><input type="radio" name="q25"><span class="opt-marker">B</span>Не люблю, но справляюсь</label>
+      <label class="option-label" onclick="selectOption(this,25,'C',2)"><input type="radio" name="q25"><span class="opt-marker">C</span>Принимаю как часть жизни</label>
+      <label class="option-label" onclick="selectOption(this,25,'D',3)"><input type="radio" name="q25"><span class="opt-marker">D</span>Нахожу в неопределённости возможности</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-26">
+    <div class="q-num">Вопрос 26</div>
+    <p class="q-text">Когда вы получаете критику, как обычно реагируете?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,26,'A',0)"><input type="radio" name="q26"><span class="opt-marker">A</span>Болезненно — долго переживаю или защищаюсь</label>
+      <label class="option-label" onclick="selectOption(this,26,'B',1)"><input type="radio" name="q26"><span class="opt-marker">B</span>Задевает, но стараюсь взять себя в руки</label>
+      <label class="option-label" onclick="selectOption(this,26,'C',2)"><input type="radio" name="q26"><span class="opt-marker">C</span>Воспринимаю как полезную информацию</label>
+      <label class="option-label" onclick="selectOption(this,26,'D',3)"><input type="radio" name="q26"><span class="opt-marker">D</span>Благодарю и использую для роста</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-27">
+    <div class="q-num">Вопрос 27</div>
+    <p class="q-text">Как вы восстанавливаетесь после неудачи или провала?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,27,'A',0)"><input type="radio" name="q27"><span class="opt-marker">A</span>Очень тяжело — надолго выпадаю из колеи</label>
+      <label class="option-label" onclick="selectOption(this,27,'B',1)"><input type="radio" name="q27"><span class="opt-marker">B</span>Постепенно, но нужно время</label>
+      <label class="option-label" onclick="selectOption(this,27,'C',2)"><input type="radio" name="q27"><span class="opt-marker">C</span>Анализирую, делаю выводы и двигаюсь дальше</label>
+      <label class="option-label" onclick="selectOption(this,27,'D',3)"><input type="radio" name="q27"><span class="opt-marker">D</span>Неудача для меня — ценный опыт, не трагедия</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-28">
+    <div class="q-num">Вопрос 28</div>
+    <p class="q-text">Умеете ли вы «отключаться» от работы и восстанавливаться?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,28,'A',0)"><input type="radio" name="q28"><span class="opt-marker">A</span>Нет — постоянно думаю о работе</label>
+      <label class="option-label" onclick="selectOption(this,28,'B',1)"><input type="radio" name="q28"><span class="opt-marker">B</span>С трудом, но иногда получается</label>
+      <label class="option-label" onclick="selectOption(this,28,'C',2)"><input type="radio" name="q28"><span class="opt-marker">C</span>Обычно умею переключаться</label>
+      <label class="option-label" onclick="selectOption(this,28,'D',3)"><input type="radio" name="q28"><span class="opt-marker">D</span>Да, восстановление — часть моей системы</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-29">
+    <div class="q-num">Вопрос 29</div>
+    <p class="q-text">Как вы относитесь к изменениям в жизни или работе?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,29,'A',0)"><input type="radio" name="q29"><span class="opt-marker">A</span>Сопротивляюсь — предпочитаю стабильность</label>
+      <label class="option-label" onclick="selectOption(this,29,'B',1)"><input type="radio" name="q29"><span class="opt-marker">B</span>Принимаю с трудом, нужна адаптация</label>
+      <label class="option-label" onclick="selectOption(this,29,'C',2)"><input type="radio" name="q29"><span class="opt-marker">C</span>Принимаю изменения достаточно спокойно</label>
+      <label class="option-label" onclick="selectOption(this,29,'D',3)"><input type="radio" name="q29"><span class="opt-marker">D</span>Люблю изменения — они дают рост</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-30">
+    <div class="q-num">Вопрос 30</div>
+    <p class="q-text">Когда всё идёт не так — как вы поддерживаете внутреннее равновесие?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,30,'A',0)"><input type="radio" name="q30"><span class="opt-marker">A</span>Мне сложно — теряю почву под ногами</label>
+      <label class="option-label" onclick="selectOption(this,30,'B',1)"><input type="radio" name="q30"><span class="opt-marker">B</span>Стараюсь, но не всегда выходит</label>
+      <label class="option-label" onclick="selectOption(this,30,'C',2)"><input type="radio" name="q30"><span class="opt-marker">C</span>Есть несколько практик, которые помогают</label>
+      <label class="option-label" onclick="selectOption(this,30,'D',3)"><input type="radio" name="q30"><span class="opt-marker">D</span>У меня выработана система поддержки себя в кризисные моменты</label>
+    </div>
+  </div>
+
+  <!-- BLOCK 6 -->
+  <div class="block-header">
+    <div class="block-num">Блок 6 из 6</div>
+    <h2 class="block-title"><em>Мотивация и границы</em></h2>
+    <div class="block-divider"></div>
+  </div>
+
+  <div class="question-card" id="card-31">
+    <div class="q-num">Вопрос 31</div>
+    <p class="q-text">Насколько легко вам говорить «нет», когда вы перегружены?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,31,'A',0)"><input type="radio" name="q31"><span class="opt-marker">A</span>Почти невозможно — соглашаюсь, потом сожалею</label>
+      <label class="option-label" onclick="selectOption(this,31,'B',1)"><input type="radio" name="q31"><span class="opt-marker">B</span>Трудно, но иногда получается</label>
+      <label class="option-label" onclick="selectOption(this,31,'C',2)"><input type="radio" name="q31"><span class="opt-marker">C</span>Обычно могу отказать, хотя не без усилий</label>
+      <label class="option-label" onclick="selectOption(this,31,'D',3)"><input type="radio" name="q31"><span class="opt-marker">D</span>Легко — умею говорить «нет» спокойно и без вины</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-32">
+    <div class="q-num">Вопрос 32</div>
+    <p class="q-text">Что чаще движет вами — внутренние цели или внешние ожидания?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,32,'A',0)"><input type="radio" name="q32"><span class="opt-marker">A</span>В основном внешние ожидания</label>
+      <label class="option-label" onclick="selectOption(this,32,'B',1)"><input type="radio" name="q32"><span class="opt-marker">B</span>Поровну, зависит от ситуации</label>
+      <label class="option-label" onclick="selectOption(this,32,'C',2)"><input type="radio" name="q32"><span class="opt-marker">C</span>Чаще внутренние, но внешнее тоже влияет</label>
+      <label class="option-label" onclick="selectOption(this,32,'D',3)"><input type="radio" name="q32"><span class="opt-marker">D</span>В основном внутренние — я знаю, зачем что-то делаю</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-33">
+    <div class="q-num">Вопрос 33</div>
+    <p class="q-text">Как вы справляетесь с потерей мотивации?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,33,'A',0)"><input type="radio" name="q33"><span class="opt-marker">A</span>Жду, пока само пройдёт</label>
+      <label class="option-label" onclick="selectOption(this,33,'B',1)"><input type="radio" name="q33"><span class="opt-marker">B</span>Пытаюсь, но часто безуспешно</label>
+      <label class="option-label" onclick="selectOption(this,33,'C',2)"><input type="radio" name="q33"><span class="opt-marker">C</span>Анализирую причину и ищу решение</label>
+      <label class="option-label" onclick="selectOption(this,33,'D',3)"><input type="radio" name="q33"><span class="opt-marker">D</span>Знаю, как восстанавливать мотивацию — через смысл и маленькие шаги</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-34">
+    <div class="q-num">Вопрос 34</div>
+    <p class="q-text">Есть ли у вас ощущение смысла и направления в жизни?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,34,'A',0)"><input type="radio" name="q34"><span class="opt-marker">A</span>Нет, часто чувствую потерянность</label>
+      <label class="option-label" onclick="selectOption(this,34,'B',1)"><input type="radio" name="q34"><span class="opt-marker">B</span>Смутно — есть догадки, но нет ясности</label>
+      <label class="option-label" onclick="selectOption(this,34,'C',2)"><input type="radio" name="q34"><span class="opt-marker">C</span>В целом да — понимаю, куда двигаюсь</label>
+      <label class="option-label" onclick="selectOption(this,34,'D',3)"><input type="radio" name="q34"><span class="opt-marker">D</span>Да, чёткое ощущение смысла и приоритетов</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-35">
+    <div class="q-num">Вопрос 35</div>
+    <p class="q-text">Замечаете ли вы, когда пересекаете свои собственные границы (делаете то, что противоречит вашим ценностям)?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,35,'A',0)"><input type="radio" name="q35"><span class="opt-marker">A</span>Редко — чаще замечаю постфактум, если вообще замечаю</label>
+      <label class="option-label" onclick="selectOption(this,35,'B',1)"><input type="radio" name="q35"><span class="opt-marker">B</span>Иногда замечаю в процессе</label>
+      <label class="option-label" onclick="selectOption(this,35,'C',2)"><input type="radio" name="q35"><span class="opt-marker">C</span>Обычно замечаю и возвращаюсь к себе</label>
+      <label class="option-label" onclick="selectOption(this,35,'D',3)"><input type="radio" name="q35"><span class="opt-marker">D</span>Хорошо слышу себя и не позволяю надолго отклоняться</label>
+    </div>
+  </div>
+
+  <div class="question-card" id="card-36">
+    <div class="q-num">Вопрос 36</div>
+    <p class="q-text">Насколько комфортно вам с собой — наедине, в тишине, без внешних стимулов?</p>
+    <div class="options-list">
+      <label class="option-label" onclick="selectOption(this,36,'A',0)"><input type="radio" name="q36"><span class="opt-marker">A</span>Некомфортно — стараюсь заполнить тишину</label>
+      <label class="option-label" onclick="selectOption(this,36,'B',1)"><input type="radio" name="q36"><span class="opt-marker">B</span>Терплю, но предпочитаю активность</label>
+      <label class="option-label" onclick="selectOption(this,36,'C',2)"><input type="radio" name="q36"><span class="opt-marker">C</span>Комфортно — люблю время наедине с собой</label>
+      <label class="option-label" onclick="selectOption(this,36,'D',3)"><input type="radio" name="q36"><span class="opt-marker">D</span>Очень комфортно — это время для восстановления и ясности</label>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap">
+    <button class="btn-submit" id="submitBtn" onclick="showResult()" disabled>Узнать результат</button>
+    <p class="submit-note" id="submitNote">Ответьте на все 36 вопросов, чтобы получить результат</p>
+  </div>
+
+</div><!-- /quiz-wrap -->
+
+<!-- RESULT -->
+<div class="result-wrap" id="resultWrap">
+  <div class="result-score-ring">
+    <div class="score-circle">
+      <span class="score-num" id="resultScore">0</span>
+      <span class="score-max">из 108</span>
+    </div>
+    <div class="result-level-badge" id="resultBadge">Уровень</div>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <!-- filled by JS -->
+  </div>
+
+  <div class="result-card" style="margin-top:0">
+    <p class="result-section-title">Ваши результаты по блокам</p>
+    <div class="block-scores" id="blockScores"></div>
+  </div>
+
+  <div class="cta-block">
+    <h3>Что делать с<br><em>результатами теста?</em></h3>
+    <p style="margin-bottom:32px">Знать свой уровень ЭИ — это первый шаг. Второй — начать его развивать. Мы подготовили два формата: один, чтобы попробовать и понять, другой — чтобы изменить всё по-настоящему.</p>
+
+    <div class="product-cards">
+
+      <div class="product-card">
+        <div class="product-card-label">Вебинар</div>
+        <div class="product-card-title">Тренируй свою амигдалу</div>
+        <p class="product-card-desc">Разбираем, как рождаются эмоции — что происходит в мозге и теле в момент стресса, почему мы застреваем на негативе и как это изменить. На реальных ситуациях разбираем, как эмоция развивается, куда поворачивает и как можно выбрать другой путь — без конфликта и без выгорания.</p>
+        <ul class="product-card-list">
+          <li>Что такое амигдала и почему она «захватывает» нас</li>
+          <li>5 жизненных ситуаций со схемой проживания эмоции</li>
+          <li>Как развернуть реакцию раньше, чем она станет конфликтом</li>
+          <li>Как выглядит жизнь без ЭИ — и как с ним</li>
+        </ul>
+        <a href="https://yookassa.ru/my/i/ahWJgn-vExoJ/l" target="_blank" class="btn-cta-primary" style="display:inline-block;margin-top:4px">Записаться на вебинар</a>
+        <a href="https://neurolabexperts.org/#formats" target="_blank" style="display:block;margin-top:10px;font-size:0.78rem;font-weight:400;color:var(--teal-light);text-align:center;text-decoration:none;opacity:0.8">Подробнее на сайте →</a>
+      </div>
+
+      <div class="product-card product-card-featured">
+        <div class="product-card-label" style="color:var(--sand);border-color:rgba(201,168,124,0.35)">Курс · 9 модулей</div>
+        <div class="product-card-title">Эмоциональная Трансформация</div>
+        <p class="product-card-desc">Глубокое погружение — от природы эмоций до коучингового мышления в общении, работе и жизни. Вы разберёте свои триггеры, научитесь разрешать конфликты, расширите спектр эмоций и освоите инструменты, которые меняют качество отношений — и профессиональный доход.</p>
+        <ul class="product-card-list">
+          <li>Эмоциональные триггеры: откуда они и как с ними работать</li>
+          <li>Коучинговое мышление в каждом разговоре</li>
+          <li>Разрешение конфликтов — практика и демо</li>
+          <li>Спектр эмоций и как его расширить</li>
+          <li>Как ЭИ влияет на ваш доход и чек</li>
+        </ul>
+        <a href="https://shorturl.at/6xUts" target="_blank" class="btn-cta-primary" style="display:inline-block;margin-top:4px">Узнать о курсе</a>
+        <a href="https://neurolabexperts.org/#formats" target="_blank" style="display:block;margin-top:10px;font-size:0.78rem;font-weight:400;color:var(--sand);text-align:center;text-decoration:none;opacity:0.8">Подробнее на сайте →</a>
+      </div>
+
+    </div>
+
+    <button class="retake-link" onclick="retakeQuiz()" style="margin-top:36px">← Пройти тест заново</button>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 НейроЛаб &nbsp;·&nbsp; <a href="https://neurolabexperts.org">neurolabexperts.org</a></p>
+</footer>
+
+<script>
+const TOTAL = 36;
+const scores = {};
+
+const BLOCKS = [
+  { name: "Самосознание",       qs: [1,2,3,4,5,6] },
+  { name: "Саморегуляция",      qs: [7,8,9,10,11,12] },
+  { name: "Эмпатия",            qs: [13,14,15,16,17,18] },
+  { name: "Социальные навыки",  qs: [19,20,21,22,23,24] },
+  { name: "Устойчивость",       qs: [25,26,27,28,29,30] },
+  { name: "Мотивация",          qs: [31,32,33,34,35,36] },
+];
+
+const LEVELS = [
+  {
+    min: 0, max: 30,
+    badge: "Низкий уровень ЭИ",
+    title: "Эмоции управляют <em>вами</em>",
+    meaning: "Ваш эмоциональный интеллект пока находится на начальном уровне развития. Это не оценка вашей личности — это карта того, где есть пространство для роста. Возможно, вам знакомо ощущение, когда эмоции захлёстывают неожиданно, или когда сложно понять, что именно происходит внутри.",
+    example: "Например, после сложного разговора вы долго «прокручиваете» его снова и снова. Или замечаете, что реагируете резко, а потом удивляетесь, откуда взялась такая реакция. Или чувствуете себя опустошённым после общения с людьми — без понимания почему.",
+    tips: [
+      "Начните вести дневник эмоций — каждый день записывайте 1–2 момента, когда почувствовали что-то сильное, и попробуйте назвать это точно.",
+      "Изучите базовую карту эмоций (колесо Плутчика или Plutchik's wheel) — расширение словаря чувств само по себе меняет восприятие.",
+      "Практикуйте паузу «3 секунды» перед ответом в напряжённых ситуациях — это маленький, но мощный шаг к саморегуляции.",
+      "Найдите одного человека, с которым можно говорить честно о своих переживаниях — безопасные отношения развивают ЭИ быстрее любых техник.",
+    ],
+    today: "Сегодня попробуйте одно простое упражнение: в конце дня задайте себе три вопроса — «Что я чувствовал сегодня?», «Когда именно?», «Почему, как мне кажется?» Без осуждения, просто с любопытством.",
+  },
+  {
+    min: 31, max: 55,
+    badge: "Ниже среднего",
+    title: "Вы начинаете <em>замечать</em>",
+    meaning: "Вы уже на пути — умеете замечать некоторые свои эмоциональные паттерны, но пока не всегда знаете, что с ними делать. Осознанность приходит постфактум чаще, чем в момент. Это нормальный этап, с которого начинают большинство людей, взявшихся за развитие ЭИ.",
+    example: "Вероятно, вам знакомо: знаете, что злитесь, но не можете остановить поток слов. Или чувствуете тревогу перед важным разговором, но не понимаете, как её унять. Иногда эмпатия есть, но проявить её вовремя не выходит.",
+    tips: [
+      "Практикуйте телесное сканирование по утрам — 2 минуты: где в теле живёт напряжение прямо сейчас? Это тренирует связь «эмоция–тело».",
+      "Когда чувствуете раздражение — сделайте паузу и спросите себя: «Что стоит за этой эмоцией? Обида? Усталость? Страх?» Ищите слой под слоем.",
+      "Поработайте с концепцией триггеров — составьте свой личный список ситуаций-активаторов и заранее продумайте реакцию.",
+      "Начните замечать, как вы влияете на настроение других — не для того чтобы управлять ими, а чтобы стать более чутким.",
+    ],
+    today: "Выберите одну ситуацию из прошедшей недели, где вы отреагировали не так, как хотелось бы. Не для самокритики — а чтобы представить: как бы вы отреагировали, если бы действовали из ресурсного состояния? Это упражнение в «переписывании» формирует новые нейронные паттерны.",
+  },
+  {
+    min: 56, max: 75,
+    badge: "Средний уровень",
+    title: "Устойчивая основа — <em>есть куда расти</em>",
+    meaning: "У вас хорошая база эмоционального интеллекта. Вы умеете замечать свои эмоции, справляетесь с большинством ситуаций и проявляете эмпатию к окружающим. При этом есть сферы, где вы чувствуете нестабильность — особенно под давлением или в затяжном стрессе.",
+    example: "Скорее всего, у вас хорошо работает эмпатия в спокойных ситуациях, но в конфликте иногда срываетесь. Или умеете поддержать другого, но свои границы отстаивать труднее. Кризисные моменты обнажают зоны роста.",
+    tips: [
+      "Сосредоточьтесь на регуляции под давлением — отрабатывайте конкретные инструменты (дыхание, якорение, рефрейминг) не в теории, а на реальных ситуациях.",
+      "Развивайте эмоциональную гибкость: тренируйтесь намеренно менять интерпретацию одного и того же события — ищите несколько версий.",
+      "Работайте с отношениями — именно здесь ЭИ проявляется на практике. Просите обратную связь у людей, которым доверяете.",
+      "Изучите концепцию «эмоциональной заразности» — как вы передаёте состояния окружающим и как они передают вам.",
+    ],
+    today: "Найдите одну свою «слепую зону» — область, где вы действуете автоматически. Это может быть реакция на критику, способ выходить из конфликта или то, как вы просите о помощи. Сделайте эту зону объектом наблюдения на неделю.",
+  },
+  {
+    min: 76, max: 90,
+    badge: "Выше среднего",
+    title: "Эмоциональная зрелость <em>в действии</em>",
+    meaning: "У вас высокий уровень эмоционального интеллекта. Вы умеете замечать, называть и регулировать свои эмоции, проявлять эмпатию и выстраивать качественные отношения. В большинстве ситуаций вы действуете осознанно, а не реактивно.",
+    example: "Вероятно, люди часто обращаются к вам за поддержкой или советом — они чувствуют вашу способность слышать. Вы умеете держать границы, не разрушая отношений. Конфликты вас не пугают — вы умеете в них находить решение.",
+    tips: [
+      "На вашем уровне особенно важна «эмоциональная гигиена» — умение не накапливать чужие состояния и вовремя восстанавливаться.",
+      "Исследуйте тонкие паттерны: где вы ещё не полностью честны с собой? Какие эмоции всё ещё избегаете?",
+      "Развивайте системное мышление об эмоциях — как они влияют на команды, организации, отношения в масштабе.",
+      "Рассмотрите роль наставника или коуча — передача знаний о ЭИ углубляет понимание и ваш собственный рост.",
+    ],
+    today: "Проведите «эмоциональный аудит» прошлой недели: какие состояния преобладали? Где вы были ресурсным, а где — «на автопилоте»? Что вы хотите изменить в следующей неделе? Это не самокритика — это навигация.",
+  },
+  {
+    min: 91, max: 108,
+    badge: "Высокий уровень ЭИ",
+    title: "Эмоциональный <em>интеллект — ваш актив</em>",
+    meaning: "Ваш эмоциональный интеллект развит на очень высоком уровне. Вы живёте в осознанном контакте с собой и окружающими, умеете регулировать сложные состояния, строить глубокие отношения и сохранять внутреннее равновесие даже в турбулентных ситуациях.",
+    example: "Скорее всего, вы умеете «читать» ситуацию и людей быстро и точно. Конфликты для вас — рабочий инструмент, а не угроза. Вы знаете свои ценности и действуете в соответствии с ними. Люди рядом с вами чувствуют себя услышанными.",
+    tips: [
+      "На вашем уровне главный вызов — не развитие, а поддержание и углубление. Следите за тем, чтобы не «автоматизировать» осознанность.",
+      "Изучите нейронауку эмоций более глубоко — понимание биологии укрепляет навыки и даёт новые инструменты.",
+      "Рассмотрите возможность работы с другими: коучинг, фасилитация, лидерство — там ваш ЭИ создаёт максимальную ценность.",
+      "Практикуйте «метапозицию» — периодически наблюдайте за своим ЭИ как исследователь: что нового вы замечаете в себе?",
+    ],
+    today: "Спросите себя: кому из вашего окружения я мог бы передать что-то из того, что знаю об эмоциях? Один разговор, одна поддержка, один вопрос — порой это меняет человека. А вас — ещё больше.",
+  },
+];
+
+function startQuiz() {
+  document.getElementById('heroSection').style.display = 'none';
+  document.getElementById('quizWrap').classList.add('show');
+  document.getElementById('progressWrap').classList.add('show');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectOption(label, qNum, letter, value) {
+  // Deselect siblings
+  const card = document.getElementById('card-' + qNum);
+  card.querySelectorAll('.option-label').forEach(l => l.classList.remove('selected'));
+  label.classList.add('selected');
+  card.classList.add('answered');
+
+  scores[qNum] = value;
+  updateProgress();
+  updateSubmit();
+}
+
+function updateProgress() {
+  const answered = Object.keys(scores).length;
+  const pct = Math.round((answered / TOTAL) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressLabel').textContent = 'Вопросов: ' + answered + ' из ' + TOTAL;
+}
+
+function updateSubmit() {
+  const answered = Object.keys(scores).length;
+  const btn = document.getElementById('submitBtn');
+  const note = document.getElementById('submitNote');
+  if (answered === TOTAL) {
+    btn.disabled = false;
+    note.textContent = 'Все вопросы отвечены — готовы узнать результат!';
+  } else {
+    btn.disabled = true;
+    note.textContent = 'Осталось ответить на ' + (TOTAL - answered) + ' ' + pluralQ(TOTAL - answered);
+  }
+}
+
+function pluralQ(n) {
+  if (n === 1) return 'вопрос';
+  if (n >= 2 && n <= 4) return 'вопроса';
+  return 'вопросов';
+}
+
+function showResult() {
+  // Calculate total
+  let total = 0;
+  for (let k in scores) total += scores[k];
+
+  // Find level
+  const level = LEVELS.find(l => total >= l.min && total <= l.max) || LEVELS[0];
+
+  // Block scores
+  const blockTotals = BLOCKS.map(b => {
+    let s = 0;
+    b.qs.forEach(q => s += (scores[q] || 0));
+    return { name: b.name, score: s, max: 18 };
+  });
+
+  // Render
+  document.getElementById('resultScore').textContent = total;
+  document.getElementById('resultBadge').textContent = level.badge;
+
+  const card = document.getElementById('resultCard');
+  card.innerHTML = `
+    <h2>${level.title}</h2>
+    <p>${level.meaning}</p>
+    <p style="margin-top:4px">${level.example}</p>
+    <p class="result-section-title">Что поможет вам развиваться</p>
+    <ul class="tips-list">
+      ${level.tips.map(t => `<li><span class="tip-dot"></span>${t}</li>`).join('')}
+    </ul>
+    <div class="today-block">
+      <strong>Начните сегодня</strong>
+      ${level.today}
+    </div>
+  `;
+
+  const bsWrap = document.getElementById('blockScores');
+  bsWrap.innerHTML = blockTotals.map(b => `
+    <div class="block-score-item">
+      <div class="bsi-name">${b.name}</div>
+      <div class="bsi-bar-outer">
+        <div class="bsi-bar-inner" style="width:${Math.round((b.score/b.max)*100)}%"></div>
+      </div>
+      <div class="bsi-score">${b.score} / ${b.max}</div>
+    </div>
+  `).join('');
+
+  // Show result
+  document.getElementById('quizWrap').classList.remove('show');
+  document.getElementById('progressWrap').classList.remove('show');
+  document.getElementById('resultWrap').classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function retakeQuiz() {
+  // Reset
+  for (let k in scores) delete scores[k];
+  document.querySelectorAll('.option-label').forEach(l => l.classList.remove('selected'));
+  document.querySelectorAll('.question-card').forEach(c => c.classList.remove('answered'));
+
+  document.getElementById('resultWrap').classList.remove('show');
+  document.getElementById('heroSection').style.display = '';
+  document.getElementById('progressWrap').classList.remove('show');
+  document.getElementById('progressBar').style.width = '0%';
+  document.getElementById('progressPct').textContent = '0%';
+  document.getElementById('progressLabel').textContent = 'Вопрос 1 из 36';
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitNote').textContent = 'Ответьте на все 36 вопросов, чтобы получить результат';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
