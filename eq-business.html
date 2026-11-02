@@ -1309,7 +1309,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 });
 
 // Form
-document.getElementById('submitBtn').addEventListener('click', () => {
+document.getElementById('submitBtn').addEventListener('click', async () => {
   const form = document.getElementById('contactForm');
   const name = form.querySelector('#name').value.trim();
   const email = form.querySelector('#email').value.trim();
@@ -1320,11 +1320,25 @@ document.getElementById('submitBtn').addEventListener('click', () => {
   }
   const team = form.querySelector('#team').value;
   const msg = form.querySelector('#message').value.trim();
-  const subject = 'Запрос EQ Business — ' + company;
-  const body = 'Имя: ' + name + '\nКомпания: ' + company + '\nEmail: ' + email +
-    '\nРазмер команды: ' + (team || '—') + '\n\n' + (msg || '');
-  window.location.href = 'mailto:mindlander.eq@gmail.com?subject=' +
-    encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+  const text = '🔔 *Новая заявка EQ Business*\n\n'
+    + '👤 *Имя:* ' + name + '\n'
+    + '🏢 *Компания:* ' + company + '\n'
+    + '📧 *Email:* ' + email + '\n'
+    + '👥 *Команда:* ' + (team || '—') + '\n'
+    + (msg ? '\n💬 *Сообщение:* ' + msg : '');
+
+  const TOKEN = '9034181601:AAE1VeKzCZ_565J4y_gO41NMXk_vNfKs5jo';
+  const CHAT_ID = '1487857563';
+
+  try {
+    await fetch('https://api.telegram.org/bot' + TOKEN + '/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'Markdown' })
+    });
+  } catch(e) { console.error(e); }
+
   document.getElementById('submitBtn').style.display = 'none';
   document.getElementById('formSuccess').style.display = 'block';
 });
