@@ -144,14 +144,20 @@
   nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(30,53,53,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,124,0.18);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:68px;}
   .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
   .nav-brand img{height:44px;width:auto;}
-  .nav-links{display:flex;gap:2px;list-style:none;}
-  .nav-links a{text-decoration:none;color:rgba(237,224,206,0.75);font-size:0.88rem;font-weight:400;letter-spacing:0.03em;padding:8px 16px;border-radius:6px;transition:all 0.2s;}
-  .nav-links a:hover{color:var(--sand-light);background:rgba(201,168,124,0.1);}
   .nav-right{display:flex;align-items:center;gap:12px;}
-  .nav-cta{background:var(--sand)!important;color:var(--near-black)!important;padding:9px 22px!important;border-radius:4px!important;font-size:0.88rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:all 0.25s;}
-  .nav-cta:hover{background:var(--sand-light)!important;transform:translateY(-1px);}
-  .nav-book{background:transparent!important;color:var(--teal-light)!important;padding:9px 22px!important;border-radius:4px!important;border:1px solid var(--teal-light)!important;font-size:0.88rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:all 0.25s;}
+  .nav-links{display:flex;gap:2px;list-style:none;margin:0;padding:0;}
+  .nav-links a{text-decoration:none;color:rgba(237,224,206,0.75);font-size:0.88rem;font-weight:400;letter-spacing:0.03em;padding:8px 14px;border-radius:6px;transition:all 0.2s;}
+  .nav-links a:hover{color:var(--sand-light);background:rgba(201,168,124,0.1);}
+  .nav-eq-link{color:var(--sand)!important;font-weight:500!important;}
+  .nav-test{color:var(--teal-light);font-size:0.85rem;font-weight:400;letter-spacing:0.03em;text-decoration:none;padding:8px 14px;border-radius:6px;border:1px solid rgba(91,184,178,0.35);transition:all 0.2s;}
+  .nav-test:hover{background:rgba(91,184,178,0.1);}
+  .nav-book{background:transparent!important;color:var(--teal-light)!important;padding:9px 22px!important;border-radius:4px!important;border:1px solid var(--teal-light)!important;font-size:0.85rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:all 0.25s;}
   .nav-book:hover{background:var(--teal-light)!important;color:var(--near-black)!important;transform:translateY(-1px);}
+  .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:201;}
+  .hamburger span{display:block;width:24px;height:2px;background:var(--sand-light);border-radius:2px;transition:all 0.3s;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
   /* HERO */
   .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 5% 80px;position:relative;overflow:hidden;background-image:url('https://raw.githubusercontent.com/englishupp-design/diagram/main/photo.png');background-size:cover;background-position:center center;background-repeat:no-repeat;}
@@ -366,25 +372,16 @@
   .reveal.visible{opacity:1;transform:translateY(0);}
 
   /* MOBILE */
-  .hamburger{display:none;}
+  /* hamburger always visible — see nav-right */
   @media(max-width:768px){
     .footer-grid{grid-template-columns:1fr;gap:32px;}
     .nav-links{display:none;}
-    .nav-cta,.nav-book{display:none;}
+    .nav-test{display:none;}
+    .nav-book{font-size:0.78rem;padding:7px 14px!important;}
     .quote-num{display:none;}
     section{padding:70px 5%;}
     .hero{padding:100px 5% 60px;}
-    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:101;}
-    .hamburger span{display:block;width:24px;height:2px;background:var(--sand-light);border-radius:2px;transition:all 0.3s;}
-    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-    .hamburger.open span:nth-child(2){opacity:0;}
-    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-    .mobile-menu{position:fixed;top:68px;left:0;right:0;background:rgba(30,53,53,0.99);backdrop-filter:blur(16px);z-index:99;padding:24px 5% 32px;display:flex;flex-direction:column;gap:4px;transform:translateY(-120%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);border-bottom:1px solid rgba(201,168,124,0.18);}
-    .mobile-menu.open{transform:translateY(0);}
-    .mobile-menu a{color:rgba(237,224,206,0.85);text-decoration:none;font-size:1rem;font-weight:400;padding:14px 0;border-bottom:1px solid rgba(201,168,124,0.1);letter-spacing:0.03em;display:block;}
-    .mobile-menu a:last-child{border-bottom:none;}
-    .mobile-menu .mob-cta{color:var(--near-black)!important;background:var(--sand);border-radius:4px;padding:14px 24px!important;text-align:center;margin-top:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;}
-    .mobile-menu .mob-book{color:var(--teal-light)!important;border:1px solid var(--teal-light);border-radius:4px;padding:14px 24px!important;text-align:center;margin-top:4px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;}
+
     .hero h1{font-size:clamp(1.9rem,7vw,2.8rem);padding:24px 28px;}
     .hero-logo{width:120px;}
     .cards-grid{grid-template-columns:1fr;}
@@ -402,6 +399,18 @@
     .cta-section h2{padding:24px 28px!important;}
     .library-section{padding:70px 5%;}
   }
+
+  /* SIDE DRAWER */
+  .drawer-overlay{position:fixed;inset:0;background:rgba(10,20,20,0.55);z-index:150;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+  .drawer-overlay.open{opacity:1;pointer-events:all;}
+  .drawer{position:fixed;top:0;left:0;bottom:0;width:280px;max-width:80vw;background:var(--deep-teal);z-index:200;padding:80px 32px 40px;display:flex;flex-direction:column;gap:0;transform:translateX(-100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);border-right:1px solid rgba(201,168,124,0.15);}
+  .drawer.open{transform:translateX(0);}
+  .drawer a{color:rgba(237,224,206,0.8);text-decoration:none;font-size:1rem;font-weight:400;padding:14px 0;border-bottom:1px solid rgba(201,168,124,0.1);letter-spacing:0.03em;display:block;transition:color 0.2s;}
+  .drawer a:hover{color:var(--sand-light);}
+  .drawer a:last-child{border-bottom:none;}
+  .drawer .drawer-cta{color:var(--near-black)!important;background:var(--sand);border-radius:4px;padding:14px 24px!important;text-align:center;margin-top:16px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;border-bottom:none!important;}
+  .drawer .drawer-eq{color:var(--sand)!important;font-weight:500;border-bottom:none!important;margin-top:8px;}
+  .drawer-close{position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;padding:8px;color:var(--sand-light);font-size:1.4rem;line-height:1;}
 </style>
 </head>
 <body>
@@ -414,33 +423,33 @@
   </a>
   <ul class="nav-links">
     <li><a href="#forwho">О проекте</a></li>
-    <li><a href="#speakers">Спикеры</a></li>
     <li><a href="#formats" onclick="switchTab('individuals',document.querySelectorAll('.tab-btn')[0])">Частным лицам</a></li>
     <li><a href="#formats" onclick="switchTabBiz()">Для бизнеса</a></li>
-    <li><a href="#curriculum">Программа</a></li>
     <li><a href="#library">Библиотека</a></li>
-    <li><a href="test.html" target="_blank" style="color:var(--teal-light)!important;">Тест на ЭИ ✦</a></li>
-    <li><a href="#formats" class="nav-cta">Записаться</a></li>
-    <li style="margin-left:16px;"><a href="#bookcall" class="nav-book">Записаться на звонок</a></li>
+    <li><a href="eq-business.html" class="nav-eq-link">EQ English</a></li>
   </ul>
   <div class="nav-right">
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <a href="test.html" target="_blank" class="nav-test">Тест на ЭИ ✦</a>
+    <a href="#bookcall" class="nav-book">Записаться на звонок</a>
+    <button class="hamburger" id="hamburger" onclick="openDrawer()" aria-label="Меню">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#forwho" onclick="closeMenu()">О проекте</a>
-  <a href="#speakers" onclick="closeMenu()">Спикеры</a>
-  <a href="#formats" onclick="switchTab('individuals',document.querySelectorAll('.tab-btn')[0]);closeMenu()">Частным лицам</a>
-  <a href="#formats" onclick="switchTabBiz();closeMenu()">Для бизнеса</a>
-  <a href="#curriculum" onclick="closeMenu()">Программа</a>
-  <a href="#library" onclick="closeMenu()">Библиотека</a>
-  <a href="test.html" target="_blank" onclick="closeMenu()" style="color:var(--teal-light)!important;">Тест на ЭИ ✦</a>
-  <a href="#formats" class="mob-cta" onclick="closeMenu()">Записаться</a>
-  <a href="#bookcall" class="mob-book" onclick="closeMenu()">Записаться на звонок</a>
+<!-- SIDE DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Закрыть">✕</button>
+  <a href="#forwho" onclick="closeDrawer()">О проекте</a>
+  <a href="#speakers" onclick="closeDrawer()">Спикеры</a>
+  <a href="#formats" onclick="switchTab('individuals',document.querySelectorAll('.tab-btn')[0]);closeDrawer()">Частным лицам</a>
+  <a href="#formats" onclick="switchTabBiz();closeDrawer()">Для бизнеса</a>
+  <a href="#curriculum" onclick="closeDrawer()">Программа</a>
+  <a href="#library" onclick="closeDrawer()">Библиотека</a>
+  <a href="test.html" target="_blank" onclick="closeDrawer()" style="color:var(--teal-light)!important;">Тест на ЭИ ✦</a>
+  <a href="eq-business.html" class="drawer-eq">EQ Business →</a>
+  <a href="#formats" class="drawer-cta" onclick="closeDrawer()">Записаться</a>
 </div>
 
 <!-- HERO -->
@@ -737,6 +746,18 @@
 
     <div class="library-grid">
 
+      <!-- CARD VIDEO -->
+      <div class="library-card reveal">
+        <div style="position:relative;width:100%;aspect-ratio:16/9;">
+          <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/wF5WhSW0P14?si=XfKK8qHmgsI98FBv" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="library-card-body">
+          <div class="library-card-type">Видео</div>
+          <div class="library-card-title">Эмоциональный интеллект в действии</div>
+          <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.85;font-weight:300;">Смотрите на YouTube — живой разговор об ЭИ и о том, как он меняет качество коммуникации в жизни и в бизнесе.</p>
+        </div>
+      </div>
+
       <!-- CARD 1 — Webinar Mastery EI -->
       <div class="library-card reveal">
         <img src="https://raw.githubusercontent.com/englishupp-design/eq-course/main/image%205.png" alt="Мастерство ЭИ" class="library-card-img">
@@ -783,6 +804,16 @@
   <div style="max-width:1100px;margin:0 auto;text-align:center;">
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--white);max-width:800px;margin:0 auto 40px;background:rgba(26,31,31,0.45);backdrop-filter:blur(6px);border:1px solid rgba(91,184,178,0.18);border-radius:16px;padding:32px 48px;box-shadow:0 8px 48px rgba(0,0,0,0.35);">Эмоциональный интеллект: модный термин или главный фактор успеха?</h2>
     <a href="https://shorturl.at/6xUts" target="_blank" class="btn-primary" style="background:var(--white);color:var(--teal-dark);">Выбрать формат работы</a>
+  </div>
+</section>
+
+<!-- EQ BUSINESS BANNER -->
+<section style="background:var(--teal-dark);padding:64px 5%;text-align:center;">
+  <div style="max-width:680px;margin:0 auto;">
+    <p style="font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--sand);margin-bottom:12px;">Корпоративная программа</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--off-white);font-weight:400;line-height:1.25;margin-bottom:16px;">EQ Business Smart English</h2>
+    <p style="font-size:1rem;color:rgba(237,224,206,0.65);line-height:1.7;margin-bottom:32px;">Деловой английский через призму эмоционального интеллекта — для команд, которые ведут переговоры, презентуют и принимают решения под давлением.</p>
+    <a href="eq-business.html" style="display:inline-block;background:var(--sand);color:var(--near-black);padding:14px 36px;border-radius:4px;font-size:0.9rem;font-weight:600;letter-spacing:0.04em;text-decoration:none;">Узнать о программе →</a>
   </div>
 </section>
 
@@ -873,24 +904,20 @@ function animateTag(el){
   el.addEventListener("animationend",()=>el.classList.remove("pop"),{once:true});
 }
 
-function toggleMenu(){
-  const menu = document.getElementById("mobileMenu");
-  const burger = document.getElementById("hamburger");
-  menu.classList.toggle("open");
-  burger.classList.toggle("open");
+function openDrawer(){
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("drawerOverlay").classList.add("open");
+  document.getElementById("hamburger").classList.add("open");
+  document.body.style.overflow="hidden";
 }
-function closeMenu(){
-  document.getElementById("mobileMenu").classList.remove("open");
+function closeDrawer(){
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("drawerOverlay").classList.remove("open");
   document.getElementById("hamburger").classList.remove("open");
+  document.body.style.overflow="";
 }
-document.addEventListener("click", e=>{
-  const menu = document.getElementById("mobileMenu");
-  const burger = document.getElementById("hamburger");
-  if(menu && burger && !menu.contains(e.target) && !burger.contains(e.target)){
-    menu.classList.remove("open");
-    burger.classList.remove("open");
-  }
-});
+function toggleMenu(){ openDrawer(); }
+function closeMenu(){ closeDrawer(); }
 
 document.querySelectorAll(".bio-toggle").forEach(btn => {
   btn.addEventListener("click", () => {
